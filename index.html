@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cupones y Ofertas ML · Los mejores cupones de Mercado Libre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 <style>
   :root{
     --sage: #b7d3c4;
@@ -43,14 +45,24 @@
     padding:6px 14px; border-radius:999px; box-shadow: 0 3px 0 rgba(0,0,0,.15); margin-bottom:16px;
   }
   h1{
-    font-family: Arial, sans-serif; font-weight:900;
-    font-size: clamp(36px, 10vw, 62px); line-height:.95; margin:0;
-    text-transform:uppercase; color:var(--white);
-    -webkit-text-stroke: 3px var(--navy);
-    text-shadow: 0 3px 0 var(--navy), 0 6px 0 rgba(0,0,0,.15);
-    letter-spacing:-0.01em;
+    font-family: 'Luckiest Guy', 'Arial Black', sans-serif;
+    font-weight:400;
+    font-size: clamp(38px, 10.5vw, 66px);
+    line-height:1.05;
+    margin:0;
+    text-transform:uppercase;
+    letter-spacing:.01em;
   }
-  h1 .accent{ color: var(--white); -webkit-text-stroke: 3px var(--red); text-shadow: 0 3px 0 var(--red), 0 6px 0 rgba(0,0,0,.15); }
+  h1 .line1{
+    color: var(--navy);
+    -webkit-text-stroke: 3px var(--white);
+    text-shadow: 0 3px 0 rgba(0,0,0,.15);
+  }
+  h1 .accent{
+    color: var(--white);
+    -webkit-text-stroke: 3px var(--navy);
+    text-shadow: 0 3px 0 rgba(0,0,0,.2);
+  }
   .sub{ color: var(--navy-deep); font-weight:700; margin-top:16px; font-size:15px; }
   .updated{ display:inline-block; margin-top:14px; padding:6px 16px; background: rgba(255,255,255,.6); border-radius:999px; font-size:12px; font-weight:700; color: var(--navy-deep); }
 
@@ -79,7 +91,7 @@
   .coupon::before{ left:-10px; }
   .coupon::after{ right:-10px; }
   .store{ font-size:11px; text-transform:uppercase; letter-spacing:.15em; font-weight:900; color: var(--navy); }
-  .discount{ font-weight:900; font-size:26px; line-height:1.05; text-transform:uppercase; color: var(--red); }
+  .discount{ font-family: 'Luckiest Guy', 'Arial Black', sans-serif; font-weight:400; font-size: 28px; line-height:1.1; text-transform:uppercase; color: var(--red); letter-spacing:.01em; }
   .desc{ font-size:13px; color:#5a5142; min-height:16px; }
   .divider{ border-top:2px dashed var(--sage-deep); margin:4px 0; }
   .code-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
@@ -150,7 +162,7 @@
 
   <div class="mascot">🐻</div>
   <div class="badge-exclusivo">Código exclusivo</div>
-  <h1>Cupones y<br><span class="accent">Ofertas ML</span></h1>
+  <h1><span class="line1">Cupones y</span><br><span class="accent">Ofertas ML</span></h1>
   <p class="sub">Los mejores cupones y descuentos de Mercado Libre, actualizados hoy</p>
   <div class="updated" id="lastUpdated">Cargando...</div>
 </header>
@@ -202,22 +214,60 @@
 ========================================================= */
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ78FaPhtRhWjNC8uHzkLziSqURlcezoNRJIRfV9yQRLAyCe6U14OGo5qDQl0pm6fCAPyAFX0a3ywY1/pub?gid=0&single=true&output=csv";
 
-// Pega aquí abajo el link de cada una de tus redes. Si alguna todavía no la tienes,
-// deja el "#" y ese botón simplemente no llevará a ningún lado hasta que lo actualices.
-const FACEBOOK_PAGE_URL   = "https://www.facebook.com/tu-pagina";
-const FACEBOOK_GROUP_URL  = "https://www.facebook.com/groups/tu-grupo";
-const WHATSAPP_URL        = "https://whatsapp.com/channel/tu-canal";
-const INSTAGRAM_URL       = "https://www.instagram.com/tu-usuario";
-const YOUTUBE_URL         = "https://www.youtube.com/@tu-canal";
-const TIKTOK_URL          = "https://www.tiktok.com/@tu-usuario";
+// Cuando publiques tu pestaña "Redes" como CSV, pega esa URL aquí.
+// Mientras esté vacío, usará los links fijos de abajo como respaldo.
+const SOCIAL_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ78FaPhtRhWjNC8uHzkLziSqURlcezoNRJIRfV9yQRLAyCe6U14OGo5qDQl0pm6fCAPyAFX0a3ywY1/pub?gid=1718758494&single=true&output=csv";
 
-document.getElementById('waBar').href = WHATSAPP_URL;
-document.getElementById('fbPageLink').href = FACEBOOK_PAGE_URL;
-document.getElementById('fbGroupLink').href = FACEBOOK_GROUP_URL;
-document.getElementById('waChannelLink').href = WHATSAPP_URL;
-document.getElementById('igLink').href = INSTAGRAM_URL;
-document.getElementById('ytLink').href = YOUTUBE_URL;
-document.getElementById('ttLink').href = TIKTOK_URL;
+const socialFallback = {
+  facebook: "https://www.facebook.com/tu-pagina",
+  grupo: "https://www.facebook.com/groups/tu-grupo",
+  whatsapp: "https://whatsapp.com/channel/tu-canal",
+  instagram: "https://www.instagram.com/tu-usuario",
+  youtube: "https://www.youtube.com/@tu-canal",
+  tiktok: "https://www.tiktok.com/@tu-usuario"
+};
+
+const socialIds = {
+  facebook: "fbPageLink",
+  grupo: "fbGroupLink",
+  whatsapp: "waChannelLink",
+  instagram: "igLink",
+  youtube: "ytLink",
+  tiktok: "ttLink"
+};
+
+function applySocialLinks(map){
+  Object.keys(socialIds).forEach(key => {
+    const el = document.getElementById(socialIds[key]);
+    if(el) el.href = map[key] || "#";
+  });
+  const wa = map.whatsapp || socialFallback.whatsapp;
+  document.getElementById('waBar').href = wa;
+}
+
+function loadSocialLinks(){
+  if(!SOCIAL_CSV_URL){
+    applySocialLinks(socialFallback);
+    return;
+  }
+  Papa.parse(SOCIAL_CSV_URL + "&t=" + Date.now(), {
+    download: true,
+    header: true,
+    skipEmptyLines: true,
+    complete: (res) => {
+      const map = {};
+      res.data.forEach(row => {
+        const key = (row.red || "").toString().trim().toLowerCase();
+        if(key) map[key] = row.link;
+      });
+      applySocialLinks(Object.assign({}, socialFallback, map));
+    },
+    error: () => applySocialLinks(socialFallback)
+  });
+}
+
+loadSocialLinks();
+setInterval(loadSocialLinks, 5 * 60 * 1000);
 
 function showToast(msg){
   const t = document.getElementById('toast');
