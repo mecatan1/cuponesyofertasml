@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cupones y Ofertas ML · Los mejores cupones de Mercado Libre</title>
+<style>
+  :root{
+    --sage: #b7d3c4;
+    --sage-deep: #86ab98;
+    --sage-dark: #5b8571;
+    --navy: #1e3a5f;
+    --navy-deep: #142944;
+    --white: #ffffff;
+    --red: #d1483c;
+    --ink: #16324a;
+    --cream: #fefaf0;
+    --wa-green: #1f7a52;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background: var(--sage);
+    color: var(--ink);
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .confetti{ position:absolute; width:34px; height:34px; opacity:.55; pointer-events:none; }
+  .confetti svg{ width:100%; height:100%; }
+
+  header{
+    position:relative;
+    background: linear-gradient(180deg, var(--sage) 0%, var(--sage-deep) 100%);
+    padding: 36px 20px 46px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .mascot{ font-size:56px; display:inline-block; margin-bottom:6px; filter: drop-shadow(0 4px 0 rgba(0,0,0,.12)); }
+  .badge-exclusivo{
+    display:inline-block; background: var(--white); color: var(--red);
+    font-weight:900; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    padding:6px 14px; border-radius:999px; box-shadow: 0 3px 0 rgba(0,0,0,.15); margin-bottom:16px;
+  }
+  h1{
+    font-family: Arial, sans-serif; font-weight:900;
+    font-size: clamp(36px, 10vw, 62px); line-height:.95; margin:0;
+    text-transform:uppercase; color:var(--white);
+    -webkit-text-stroke: 3px var(--navy);
+    text-shadow: 0 3px 0 var(--navy), 0 6px 0 rgba(0,0,0,.15);
+    letter-spacing:-0.01em;
+  }
+  h1 .accent{ color: var(--white); -webkit-text-stroke: 3px var(--red); text-shadow: 0 3px 0 var(--red), 0 6px 0 rgba(0,0,0,.15); }
+  .sub{ color: var(--navy-deep); font-weight:700; margin-top:16px; font-size:15px; }
+  .updated{ display:inline-block; margin-top:14px; padding:6px 16px; background: rgba(255,255,255,.6); border-radius:999px; font-size:12px; font-weight:700; color: var(--navy-deep); }
+
+  .badges{
+    max-width: 960px; margin: -22px auto 0; position:relative; z-index:2;
+    display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; padding: 0 16px;
+  }
+  .badge{ background: var(--white); border-radius:14px; padding: 14px 6px 10px; text-align:center; box-shadow: 0 4px 0 rgba(0,0,0,.08); }
+  .badge-icon{ width:38px; height:38px; border-radius:50%; background: var(--red); color:var(--white); display:flex; align-items:center; justify-content:center; margin: 0 auto 6px; font-size:18px; }
+  .badge-label{ font-size:10.5px; font-weight:800; color: var(--navy-deep); line-height:1.2; text-transform:uppercase; }
+  @media (max-width:520px){ .badges{ grid-template-columns: repeat(2,1fr); } }
+
+  main{ max-width:960px; margin:0 auto; padding: 34px 16px 40px; }
+  #status{ text-align:center; color: var(--navy-deep); font-weight:700; padding:40px 0; font-size:14px; }
+  .grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap:22px; }
+  .coupon{
+    position:relative; background: var(--cream); color: var(--ink);
+    border-radius:14px; padding:20px 20px 18px; display:flex; flex-direction:column; gap:10px;
+    text-align:left; cursor:pointer; border: 2px solid var(--sage-dark); font-family:inherit;
+    transform:rotate(var(--r,0deg)); transition: transform .15s ease, box-shadow .15s ease;
+    box-shadow: 0 6px 0 var(--sage-dark);
+  }
+  .coupon:hover{ transform: translateY(-4px) rotate(var(--r,0deg)); box-shadow: 0 10px 0 var(--sage-dark); }
+  .coupon:active{ transform: translateY(0) rotate(0); }
+  .coupon::before, .coupon::after{ content:""; position:absolute; width:20px; height:20px; background: var(--sage); border-radius:50%; top:50%; transform:translateY(-50%); }
+  .coupon::before{ left:-10px; }
+  .coupon::after{ right:-10px; }
+  .store{ font-size:11px; text-transform:uppercase; letter-spacing:.15em; font-weight:900; color: var(--navy); }
+  .discount{ font-weight:900; font-size:26px; line-height:1.05; text-transform:uppercase; color: var(--red); }
+  .desc{ font-size:13px; color:#5a5142; min-height:16px; }
+  .divider{ border-top:2px dashed var(--sage-deep); margin:4px 0; }
+  .code-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .code{ font-family:'Courier New',monospace; font-weight:900; font-size:15px; letter-spacing:.05em; background: var(--navy); color: var(--white); padding:6px 10px; border-radius:6px; }
+  .cta{ font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.06em; color: var(--red); }
+
+  .wa-bar{
+    position:sticky; bottom:0; left:0; right:0; background: var(--wa-green); color: var(--white);
+    text-align:center; padding:14px 16px; font-weight:900; font-size:13px; text-transform:uppercase;
+    letter-spacing:.04em; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px; z-index:5;
+  }
+  .wa-bar:hover{ background:#1a6a48; }
+
+  .social{
+    max-width: 960px; margin: 10px auto 0; padding: 24px 16px 6px;
+    text-align:center;
+  }
+  .social-title{
+    font-size:13px; font-weight:900; text-transform:uppercase; letter-spacing:.1em;
+    color: var(--navy-deep); margin-bottom:16px;
+  }
+  .social-grid{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:12px;
+  }
+  .social-btn{
+    display:flex; align-items:center; gap:8px;
+    background: var(--white); color: var(--navy-deep);
+    font-weight:800; font-size:13px; text-decoration:none;
+    padding:10px 18px; border-radius:999px;
+    box-shadow: 0 4px 0 rgba(0,0,0,.1);
+    border: 2px solid transparent;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .social-btn:hover{ transform: translateY(-2px); box-shadow: 0 6px 0 rgba(0,0,0,.12); }
+  .social-btn:active{ transform: translateY(0); box-shadow: 0 2px 0 rgba(0,0,0,.1); }
+  .social-btn .ico{
+    width:26px; height:26px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--white); font-size:13px; flex-shrink:0;
+  }
+  .ico-fb{ background:#3b5998; }
+  .ico-fbgroup{ background:#2f477a; }
+  .ico-wa{ background:var(--wa-green); }
+  .ico-ig{ background: linear-gradient(45deg,#f09433,#dc2743,#bc1888); }
+  .ico-yt{ background:#d1483c; }
+  .ico-tt{ background:#16324a; }
+
+  footer{ text-align:center; padding:10px 16px 90px; color: var(--navy-deep); font-size:13px; }
+  footer a{ color: var(--navy); font-weight:800; text-decoration:none; margin:0 8px;}
+
+  .toast{
+    position:fixed; left:50%; bottom:70px; transform:translateX(-50%) translateY(20px);
+    background: var(--navy); color: var(--white); font-weight:800; padding:12px 20px; border-radius:10px;
+    opacity:0; transition: all .25s ease; pointer-events:none; font-size:14px; z-index:10;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="confetti" style="top:20px; left:6%;">
+    <svg viewBox="0 0 40 40"><rect x="4" y="10" width="32" height="20" rx="4" fill="#5b8571" stroke="#fff" stroke-width="1.5" stroke-dasharray="3 3"/><text x="20" y="24" font-size="13" fill="#fff" text-anchor="middle" font-weight="900">%</text></svg>
+  </div>
+  <div class="confetti" style="top:70px; right:8%;">
+    <svg viewBox="0 0 40 40"><rect x="4" y="10" width="32" height="20" rx="4" fill="#5b8571" stroke="#fff" stroke-width="1.5" stroke-dasharray="3 3"/><text x="20" y="24" font-size="13" fill="#fff" text-anchor="middle" font-weight="900">%</text></svg>
+  </div>
+
+  <div class="mascot">🐻</div>
+  <div class="badge-exclusivo">Código exclusivo</div>
+  <h1>Cupones y<br><span class="accent">Ofertas ML</span></h1>
+  <p class="sub">Los mejores cupones y descuentos de Mercado Libre, actualizados hoy</p>
+  <div class="updated" id="lastUpdated">Cargando...</div>
+</header>
+
+<div class="badges">
+  <div class="badge"><div class="badge-icon">🏷️</div><div class="badge-label">Descuentos exclusivos</div></div>
+  <div class="badge"><div class="badge-icon">🚚</div><div class="badge-label">Envíos rápidos</div></div>
+  <div class="badge"><div class="badge-icon">🛡️</div><div class="badge-label">Compra segura</div></div>
+  <div class="badge"><div class="badge-icon">❤️</div><div class="badge-label">Miles de productos</div></div>
+</div>
+
+<main>
+  <div id="status">Buscando las ofertas de hoy…</div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<section class="social">
+  <div class="social-title">Síguenos también en</div>
+  <div class="social-grid">
+    <a href="#" id="fbPageLink" class="social-btn" target="_blank" rel="noopener"><span class="ico ico-fb">f</span> Facebook</a>
+    <a href="#" id="fbGroupLink" class="social-btn" target="_blank" rel="noopener"><span class="ico ico-fbgroup">g</span> Grupo FB</a>
+    <a href="#" id="waChannelLink" class="social-btn" target="_blank" rel="noopener"><span class="ico ico-wa">w</span> WhatsApp</a>
+    <a href="#" id="igLink" class="social-btn" target="_blank" rel="noopener"><span class="ico ico-ig">i</span> Instagram</a>
+    <a href="#" id="ytLink" class="social-btn" target="_blank" rel="noopener"><span class="ico ico-yt">▶</span> YouTube</a>
+    <a href="#" id="ttLink" class="social-btn" target="_blank" rel="noopener"><span class="ico ico-tt">t</span> TikTok</a>
+  </div>
+</section>
+
+<footer></footer>
+
+<a href="#" id="waBar" class="wa-bar" target="_blank" rel="noopener">
+  💬 Los mejores cupones y descuentos
+</a>
+
+<div class="toast" id="toast">Código copiado ✓</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script>
+/* =========================================================
+   CONFIGURACIÓN — esto es lo único que necesitas cambiar UNA VEZ
+   =========================================================
+   1. Crea una Google Sheet con estas columnas exactas en la fila 1:
+      tienda | descuento | descripcion | codigo | link | activo
+   2. Archivo > Compartir > Publicar en la web > selecciona la hoja
+      y el formato "Valores separados por comas (.csv)" > Publicar
+   3. Pega esa URL aquí abajo en SHEET_CSV_URL
+   4. Cada día solo editas la hoja (agregas, borras o cambias filas)
+      y la página se actualiza sola, sin tocar nada de este archivo.
+========================================================= */
+const SHEET_CSV_URL = "PEGA_AQUI_TU_URL_CSV_PUBLICADA_DE_GOOGLE_SHEETS";
+
+// Pega aquí abajo el link de cada una de tus redes. Si alguna todavía no la tienes,
+// deja el "#" y ese botón simplemente no llevará a ningún lado hasta que lo actualices.
+const FACEBOOK_PAGE_URL   = "https://www.facebook.com/tu-pagina";
+const FACEBOOK_GROUP_URL  = "https://www.facebook.com/groups/tu-grupo";
+const WHATSAPP_URL        = "https://whatsapp.com/channel/tu-canal";
+const INSTAGRAM_URL       = "https://www.instagram.com/tu-usuario";
+const YOUTUBE_URL         = "https://www.youtube.com/@tu-canal";
+const TIKTOK_URL          = "https://www.tiktok.com/@tu-usuario";
+
+document.getElementById('waBar').href = WHATSAPP_URL;
+document.getElementById('fbPageLink').href = FACEBOOK_PAGE_URL;
+document.getElementById('fbGroupLink').href = FACEBOOK_GROUP_URL;
+document.getElementById('waChannelLink').href = WHATSAPP_URL;
+document.getElementById('igLink').href = INSTAGRAM_URL;
+document.getElementById('ytLink').href = YOUTUBE_URL;
+document.getElementById('ttLink').href = TIKTOK_URL;
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=> t.classList.remove('show'), 1600);
+}
+
+function renderCoupons(rows){
+  const grid = document.getElementById('grid');
+  const status = document.getElementById('status');
+  grid.innerHTML = "";
+
+  const activos = rows.filter(r => (r.activo || "").toString().trim().toLowerCase() !== "no");
+
+  if(activos.length === 0){
+    status.textContent = "No hay cupones activos en este momento. Vuelve más tarde.";
+    status.style.display = "block";
+    return;
+  }
+  status.style.display = "none";
+
+  activos.forEach((r, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'coupon';
+    btn.style.setProperty('--r', (i % 2 === 0 ? '-0.6deg' : '0.6deg'));
+    btn.innerHTML = `
+      <div class="store">${r.tienda || 'Mercado Libre'}</div>
+      <div class="discount">${r.descuento || 'Oferta especial'}</div>
+      <div class="desc">${r.descripcion || ''}</div>
+      <div class="divider"></div>
+      <div class="code-row">
+        <span class="code">${r.codigo ? r.codigo : 'VER OFERTA'}</span>
+        <span class="cta">Copiar y ver →</span>
+      </div>
+    `;
+    btn.addEventListener('click', () => {
+      if(r.codigo){
+        navigator.clipboard.writeText(r.codigo).catch(()=>{});
+        showToast('Código ' + r.codigo + ' copiado ✓');
+      }
+      const link = r.link || '#';
+      setTimeout(() => window.open(link, '_blank', 'noopener'), r.codigo ? 350 : 0);
+    });
+    grid.appendChild(btn);
+  });
+}
+
+function loadCoupons(){
+  if(!SHEET_CSV_URL || SHEET_CSV_URL.includes("PEGA_AQUI")){
+    document.getElementById('status').innerHTML =
+      "Configura tu <b>SHEET_CSV_URL</b> dentro del código para conectar tu Google Sheet.";
+    return;
+  }
+  Papa.parse(SHEET_CSV_URL + "&t=" + Date.now(), {
+    download: true,
+    header: true,
+    skipEmptyLines: true,
+    complete: (res) => renderCoupons(res.data),
+    error: () => {
+      document.getElementById('status').textContent =
+        "No se pudo cargar la hoja de cupones. Revisa que esté publicada como CSV.";
+    }
+  });
+  document.getElementById('lastUpdated').textContent =
+    "Última revisión: " + new Date().toLocaleString('es-MX', {dateStyle:'medium', timeStyle:'short'});
+}
+
+loadCoupons();
+setInterval(loadCoupons, 5 * 60 * 1000);
+</script>
+
+</body>
+</html>
