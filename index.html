@@ -130,6 +130,7 @@
     text-align:left; cursor:pointer; border: 2px solid var(--sage-dark); font-family:inherit;
     transform:rotate(var(--r,0deg)); transition: transform .15s ease, box-shadow .15s ease;
     box-shadow: 0 6px 0 var(--sage-dark);
+    text-decoration:none; -webkit-tap-highlight-color: transparent;
   }
   .coupon:hover{ transform: translateY(-4px) rotate(var(--r,0deg)); box-shadow: 0 10px 0 var(--sage-dark); }
   .coupon:active{ transform: translateY(0) rotate(0); }
@@ -145,7 +146,6 @@
   .code-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
   .code{ font-family:'Courier New',monospace; font-weight:900; font-size:15px; letter-spacing:.08em; background: var(--navy); color: var(--white); padding:6px 10px; border-radius:6px; }
   .cta{ font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.06em; color: var(--red); }
-  .uses{ font-size:11px; font-weight:700; color: var(--sage-dark); display:flex; align-items:center; gap:5px; }
   .no-results{ text-align:center; padding:40px 16px; color: var(--navy-deep); font-weight:700; }
   .no-results button{ margin-top:10px; background:var(--navy); color:var(--white); border:none; padding:8px 18px; border-radius:999px; font-weight:800; cursor:pointer; font-family:inherit; }
 
@@ -284,14 +284,6 @@
 ========================================================= */
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ78FaPhtRhWjNC8uHzkLziSqURlcezoNRJIRfV9yQRLAyCe6U14OGo5qDQl0pm6fCAPyAFX0a3ywY1/pub?gid=0&single=true&output=csv";
 
-// Contador de usos por cupón — no requiere configuración, ya está listo.
-// Usa CountAPI (countapi.mileshilliard.com), un servicio externo gratuito y
-// sin registro para llevar conteos simples. Si algún día deja de responder,
-// el "try/catch" de abajo lo absorbe en silencio: la página y los cupones
-// siguen funcionando normal, solo dejaría de sumar hasta que vuelva.
-const COUNTER_BASE = "https://countapi.mileshilliard.com/api/v1";
-const COUNTER_NAMESPACE = "eltiocupones_com"; // cambia esto solo si cambias de dominio
-
 // Cuando publiques tu pestaña "Redes" como CSV, pega esa URL aquí.
 // Mientras esté vacío, usará los links fijos de abajo como respaldo.
 const SOCIAL_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ78FaPhtRhWjNC8uHzkLziSqURlcezoNRJIRfV9yQRLAyCe6U14OGo5qDQl0pm6fCAPyAFX0a3ywY1/pub?gid=1718758494&single=true&output=csv";
@@ -337,26 +329,46 @@ function applySocialLinks(map){
   document.getElementById('waBar').href = wa;
 }
 
+// Descarga un CSV con timeout y reintentos usando fetch (más confiable que
+// el "download" interno de PapaParse, sobre todo en Safari, que puede fallar
+// silenciosamente con las redirecciones que usa Google Sheets al publicar un CSV).
+async function fetchCsvText(url, {timeoutMs = 8000, retries = 2} = {}){
+  for(let attempt = 0; attempt <= retries; attempt++){
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try{
+      const res = await fetch(url + (url.includes('?') ? '&' : '?') + "t=" + Date.now(), {
+        signal: controller.signal,
+        cache: "no-store"
+      });
+      clearTimeout(timer);
+      if(!res.ok) throw new Error("HTTP " + res.status);
+      return await res.text();
+    }catch(err){
+      clearTimeout(timer);
+      if(attempt === retries) throw err;
+      await new Promise(r => setTimeout(r, 600 * (attempt + 1))); // pequeña espera antes de reintentar
+    }
+  }
+}
+
 function loadSocialLinks(){
   if(!SOCIAL_CSV_URL){
     applySocialLinks(socialFallback);
     return;
   }
-  Papa.parse(SOCIAL_CSV_URL + "&t=" + Date.now(), {
-    download: true,
-    header: true,
-    skipEmptyLines: true,
-    complete: (res) => {
+  fetchCsvText(SOCIAL_CSV_URL)
+    .then(text => {
+      const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
       const map = {};
-      res.data.forEach(row => {
+      parsed.data.forEach(row => {
         const r = normalizeRow(row);
         const key = (r.red || "").toString().trim().toLowerCase();
         if(key) map[key] = r.link;
       });
       applySocialLinks(Object.assign({}, socialFallback, map));
-    },
-    error: () => applySocialLinks(socialFallback)
-  });
+    })
+    .catch(() => applySocialLinks(socialFallback));
 }
 
 loadSocialLinks();
@@ -432,65 +444,6 @@ function applyFilters(){
 
 document.getElementById('searchInput').addEventListener('input', applyFilters);
 
-let usageCounts = {};
-
-// Convierte texto libre en una clave segura para la API (solo minúsculas, números y guiones bajos).
-function slug(text){
-  return (text || '')
-    .toString().trim().toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '_')
-    .replace(/^_+|_+$/g, '')
-    .slice(0, 60);
-}
-
-// Clave estable por cupón: tienda + código (o descuento si no hay código).
-// Como incluye el código, en cuanto lo cambies en el Sheet se genera una
-// clave nueva y el contador arranca en 0 solo, sin que tengas que hacer nada.
-function couponKey(r){
-  const store = slug(r.tienda || 'mercado_libre');
-  const code = slug(r.codigo || r.descuento || 'oferta');
-  return COUNTER_NAMESPACE + '_' + store + '_' + code;
-}
-
-function formatUses(n){
-  return '📋 ' + n + (n === 1 ? ' uso' : ' usos');
-}
-
-// Lee (sin sumar) el conteo actual de cada cupón visible, en paralelo y sin bloquear nada.
-function fetchUsageCounts(){
-  document.querySelectorAll('.uses[data-key]').forEach(el => {
-    const key = el.getAttribute('data-key');
-    fetch(COUNTER_BASE + '/get/' + key)
-      .then(r => r.json())
-      .then(data => {
-        const n = parseInt(data.value, 10);
-        if(!isNaN(n)){
-          usageCounts[key] = n;
-          el.textContent = formatUses(n);
-        }
-      })
-      .catch(()=>{}); // cupón nuevo (aún sin usos) o servicio caído: se queda en 0, sin errores visibles
-  });
-}
-
-// Suma +1 al hacer clic. Actualiza la pantalla al instante y en segundo plano confirma con el servidor.
-function registerUsage(key, el){
-  const optimistic = (usageCounts[key] || 0) + 1;
-  usageCounts[key] = optimistic;
-  if(el) el.textContent = formatUses(optimistic);
-  fetch(COUNTER_BASE + '/hit/' + key)
-    .then(r => r.json())
-    .then(data => {
-      const n = parseInt(data.value, 10);
-      if(!isNaN(n) && el){
-        usageCounts[key] = n;
-        el.textContent = formatUses(n);
-      }
-    })
-    .catch(()=>{});
-}
-
 function renderGrid(activos){
   const grid = document.getElementById('grid');
   const status = document.getElementById('status');
@@ -510,11 +463,22 @@ function renderGrid(activos){
   }
 
   activos.forEach((r, i) => {
-    const btn = document.createElement('button');
+    const link = ensureUrl(r.link) || '#';
+    // Usamos un <a> real (con href de verdad) en vez de un <button> + JS.
+    // Esto es más robusto en TODOS los dispositivos y navegadores: un enlace
+    // real siempre puede abrirse por el usuario (con clic normal, "abrir en
+    // pestaña nueva", mantener presionado en celular, etc.) y no depende de
+    // que el navegador permita que JavaScript abra ventanas — que es
+    // exactamente lo que fallaba antes y lo que más varía entre navegadores
+    // (Safari, navegador integrado de WhatsApp/Facebook/Instagram, Android
+    // viejo, etc.).
+    const btn = document.createElement('a');
     btn.className = 'coupon';
+    btn.href = link;
+    btn.target = '_blank';
+    btn.rel = 'noopener noreferrer sponsored';
     btn.style.setProperty('--r', (i % 2 === 0 ? '-0.6deg' : '0.6deg'));
     const storeName = r.tienda || 'Mercado Libre';
-    const key = couponKey(r);
     btn.setAttribute('aria-label', 'Copiar cupón de ' + storeName + ' e ir a Mercado Libre');
     btn.innerHTML = `
       <div class="store-row">
@@ -528,17 +492,15 @@ function renderGrid(activos){
         <span class="code">${maskCode(r.codigo)}</span>
         <span class="cta">Copiar y ver →</span>
       </div>
-      <div class="uses" data-key="${key}">${formatUses(usageCounts[key] || 0)}</div>
     `;
-    const usesEl = btn.querySelector('.uses');
+    // No usamos preventDefault: dejamos que el navegador navegue de forma
+    // normal y nativa (como cualquier link). Solo copiamos el código al
+    // portapapeles al vuelo, sin bloquear ni retrasar la navegación.
     btn.addEventListener('click', () => {
-      if(r.codigo){
+      if(r.codigo && navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(r.codigo).catch(()=>{});
         showToast('Código ' + r.codigo + ' copiado ✓');
       }
-      registerUsage(key, usesEl);
-      const link = ensureUrl(r.link) || '#';
-      setTimeout(() => window.open(link, '_blank', 'noopener'), r.codigo ? 350 : 0);
     });
     grid.appendChild(btn);
   });
@@ -560,30 +522,60 @@ function renderCoupons(rows){
   buildChips(allCoupons);
   activeStore = "Todos";
   applyFilters();
-  fetchUsageCounts();
+}
+
+const COUPONS_CACHE_KEY = 'etc_coupons_cache_v1';
+
+function showRetryError(msg){
+  const status = document.getElementById('status');
+  status.innerHTML = msg + ' <button id="retryLoadBtn" style="margin-left:8px;">Reintentar</button>';
+  status.style.display = "block";
+  document.getElementById('retryLoadBtn').addEventListener('click', loadCoupons);
 }
 
 function loadCoupons(){
   const status = document.getElementById('status');
+
   if(!SHEET_CSV_URL || SHEET_CSV_URL.includes("PEGA_AQUI")){
     document.getElementById('grid').innerHTML = "";
     status.innerHTML = "Configura tu <b>SHEET_CSV_URL</b> dentro del código para conectar tu Google Sheet.";
     status.style.display = "block";
     return;
   }
-  Papa.parse(SHEET_CSV_URL + "&t=" + Date.now(), {
-    download: true,
-    header: true,
-    skipEmptyLines: true,
-    complete: (res) => renderCoupons(res.data.map(normalizeRow)),
-    error: () => {
-      document.getElementById('grid').innerHTML = "";
-      status.textContent = "No se pudo cargar la hoja de cupones. Revisa que esté publicada como CSV.";
-      status.style.display = "block";
-    }
-  });
-  document.getElementById('lastUpdated').textContent =
-    "Última revisión: " + new Date().toLocaleString('es-MX', {dateStyle:'medium', timeStyle:'short'});
+
+  // Si hay cupones guardados de una carga exitosa anterior, se muestran
+  // de inmediato mientras se intenta obtener la versión más reciente.
+  if(allCoupons.length === 0){
+    try{
+      const cached = JSON.parse(localStorage.getItem(COUPONS_CACHE_KEY) || 'null');
+      if(cached && Array.isArray(cached.rows) && cached.rows.length){
+        renderCoupons(cached.rows);
+      }
+    }catch(e){ /* ignorar cache corrupta */ }
+  }
+
+  fetchCsvText(SHEET_CSV_URL)
+    .then(text => {
+      const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+      const rows = parsed.data.map(normalizeRow);
+      renderCoupons(rows);
+      try{
+        localStorage.setItem(COUPONS_CACHE_KEY, JSON.stringify({rows, ts: Date.now()}));
+      }catch(e){ /* localStorage puede fallar en modo privado; no es crítico */ }
+      document.getElementById('lastUpdated').textContent =
+        "Última revisión: " + new Date().toLocaleString('es-MX', {dateStyle:'medium', timeStyle:'short'});
+    })
+    .catch(() => {
+      // Si ya se mostraron cupones (de cache o de una carga previa), los dejamos
+      // visibles y solo avisamos que no se pudo actualizar, sin vaciar la grilla.
+      if(allCoupons.length === 0){
+        document.getElementById('grid').innerHTML = "";
+        showRetryError("No se pudo cargar la hoja de cupones. Revisa tu conexión.");
+      }else{
+        document.getElementById('lastUpdated').textContent =
+          "No se pudo actualizar (mostrando la última versión disponible).";
+      }
+    });
 }
 
 loadCoupons();
