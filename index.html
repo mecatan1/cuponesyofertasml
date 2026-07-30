@@ -198,41 +198,11 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 .cta-btn svg{width:10px;height:10px}
 .coupon-uses{font-size:10px}
 }
-
-@media(max-width:640px){
-/* Trust badges row - point 3 */
-.trust-badges{gap:6px;margin-bottom:16px}
-.t-badge{padding:4px 9px;font-size:9.5px;gap:4px}
-.t-badge svg{width:12px;height:12px}
-.social-proof{gap:8px}
-.av{width:24px;height:24px;font-size:9px}
-.social-proof-text{font-size:12px}
-/* Search + chips - point 2 */
-.search-section{margin:-16px auto 18px;padding:0 12px}
-.search-box{padding:10px;border-radius:14px}
-.search-row{gap:6px;margin-bottom:10px}
-.search-input{padding:10px 14px;font-size:13px}
-.search-btn{padding:0 16px;font-size:12px}
-.chip-row{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:6px;padding-bottom:2px}
-.chip-row::-webkit-scrollbar{display:none}
-.chip{flex-shrink:0;padding:6px 12px;font-size:10.5px}
-.section-title{font-size:19px}
-.section-title .emoji{font-size:22px}
-/* Coupon cards - point 3 */
-.grid{gap:10px}
-.coupon{padding:12px;gap:6px;border-radius:10px;border-top-width:3px}
-.store-logo{width:26px;height:26px;font-size:11px;border-radius:6px}
-.store-name{font-size:10px}
-.verified-badge{font-size:8px;padding:2px 6px;gap:2px}
-.verified-badge svg{width:8px;height:8px}
-.coupon-discount{font-size:18px}
-.coupon-desc{font-size:11px;min-height:0;line-height:1.35}
-.coupon-divider{margin:0}
-.code-box{padding:6px 8px;font-size:12px;border-radius:6px}
-.cta-btn{padding:7px 10px;font-size:9px;gap:4px;border-radius:6px}
-.cta-btn svg{width:10px;height:10px}
-.coupon-uses{font-size:10px}
-}
+.coupon.expired{opacity:0.55;filter:grayscale(65%);cursor:not-allowed}
+.coupon.expired:hover{transform:none;box-shadow:var(--shadow-sm)}
+.coupon.expired .cta-btn{background:var(--gray-300);color:var(--gray-700);box-shadow:none;cursor:not-allowed}
+.expired-badge{color:var(--red)!important;background:rgba(231,76,60,0.08)!important}
+.countdown-badge{color:var(--yellow-dark)!important;background:rgba(245,197,24,0.12)!important}
 </style>
 </head>
 <body>
@@ -270,7 +240,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
       </div>
       <div class="social-proof">
         <div class="avatars"><div class="av" style="background:#F5C518;color:#1a1f3c;">A</div><div class="av" style="background:#1a1f3c;color:#fff;">M</div><div class="av" style="background:#e74c3c;color:#fff;">J</div><div class="av" style="background:#27ae60;color:#fff;">R</div></div>
-        <p class="social-proof-text"><strong id="saversCount">+127,450</strong> personas ya ahorraron hoy</p>
+        <p class="social-proof-text"><strong id="saversCount">···</strong> personas ya ahorraron hoy</p>
       </div>
     </div>
     <div class="hero-visual">
@@ -310,7 +280,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
   <aside class="sidebar">
     <div class="sidebar-box">
       <div class="sidebar-title">📊 Estadísticas</div>
-      <div class="counter-big"><div class="counter-number" id="sidebarCounter">+127k</div><div class="counter-label">Personas ya ahorraron hoy<br>con nuestros cupones</div></div>
+      <div class="counter-big"><div class="counter-number" id="sidebarCounter">···</div><div class="counter-label">Personas ya ahorraron hoy<br>con nuestros cupones</div></div>
     </div>
     <div class="sidebar-box">
       <div class="sidebar-title">🌐 Síguenos</div>
@@ -393,7 +363,7 @@ const YOUTUBE_VIDEO_ID = "";
 const socialFallback = {facebook:"https://www.facebook.com/tu-pagina",grupo:"https://www.facebook.com/groups/tu-grupo",whatsapp:"https://whatsapp.com/channel/tu-canal",instagram:"https://www.instagram.com/tu-usuario",youtube:"https://www.youtube.com/@tu-canal",tiktok:"https://www.tiktok.com/@tu-usuario"};
 const socialIds = {facebook:"fbPageLink",grupo:"fbGroupLink",whatsapp:"waChannelLink",instagram:"igLink",youtube:"ytLink",tiktok:"ttLink"};
 const footerSocialMap = {facebook:"footFb",instagram:"footIg",whatsapp:"footWa",youtube:"footYt",tiktok:"footTt"};
-let allCoupons = [];let activeStore = "Todos";let usageCounts = {};const COUPONS_CACHE_KEY = 'etc_coupons_cache_v2';
+let allCoupons = [];let activeStore = "Todos";let usageCounts = {};const COUPONS_CACHE_KEY = 'etc_coupons_cache_v2';let lastSuccessfulFetch = null;
 document.getElementById('year').textContent = new Date().getFullYear();
 function ensureUrl(url){if(!url)return"";const clean=url.toString().trim();if(!clean||clean==="#")return clean;if(/^https?:\/\//i.test(clean))return clean;return"https://"+clean}
 function applySocialLinks(map){Object.keys(socialIds).forEach(key=>{const el=document.getElementById(socialIds[key]);if(el)el.href=ensureUrl(map[key])||"#"});Object.keys(footerSocialMap).forEach(key=>{const el=document.getElementById(footerSocialMap[key]);if(el)el.href=ensureUrl(map[key])||"#"});const wa=ensureUrl(map.whatsapp)||socialFallback.whatsapp;document.getElementById('waBar').href=wa;document.getElementById('footerWa').href=wa}
@@ -410,15 +380,19 @@ document.getElementById('searchInput').addEventListener('input',applyFilters);
 function slug(text){return(text||'').toString().trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'').slice(0,60)}
 function couponKey(r){return COUNTER_NAMESPACE+'_'+slug(r.tienda||'mercado_libre')+'_'+slug(r.codigo||r.descuento||'oferta')}
 function formatUses(n){return'📋 '+n+(n===1?' uso':' usos')}
-function fetchUsageCounts(){document.querySelectorAll('.uses[data-key]').forEach(el=>{const key=el.getAttribute('data-key');fetch(COUNTER_BASE+'/get/'+key).then(r=>r.json()).then(data=>{const n=parseInt(data.value,10);if(!isNaN(n)){usageCounts[key]=n;el.textContent=formatUses(n)}}).catch(()=>{})})}
-function registerUsage(key,el){const optimistic=(usageCounts[key]||0)+1;usageCounts[key]=optimistic;if(el)el.textContent=formatUses(optimistic);fetch(COUNTER_BASE+'/hit/'+key).then(r=>r.json()).then(data=>{const n=parseInt(data.value,10);if(!isNaN(n)&&el){usageCounts[key]=n;el.textContent=formatUses(n)}}).catch(()=>{})}
-function renderGrid(activos){const grid=document.getElementById('grid');const status=document.getElementById('status');grid.innerHTML="";if(activos.length===0){status.style.display="none";grid.innerHTML=`<div class="no-results" style="grid-column:1/-1;"><h3>No encontramos cupones con esa búsqueda</h3><p>Prueba con otro término o revisa todas las tiendas.</p><button id="clearFiltersBtn">Ver todos los cupones</button></div>`;document.getElementById('clearFiltersBtn').addEventListener('click',()=>{document.getElementById('searchInput').value="";selectChip('Todos')});return}activos.forEach((r,i)=>{const link=ensureUrl(r.link)||'#';const btn=document.createElement('a');btn.className='coupon';btn.href=link;btn.target='_blank';btn.rel='noopener sponsored';const storeName=r.tienda||'Mercado Libre';const key=couponKey(r);btn.setAttribute('aria-label','Cupón de '+storeName+': '+(r.descuento||'Oferta'));btn.innerHTML=`<div class="coupon-head"><div class="coupon-store"><div class="store-logo">${storeName.charAt(0).toUpperCase()}</div><span class="store-name">${storeName}</span></div><span class="verified-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Verificado hoy</span></div><div class="coupon-discount">${r.descuento||'Oferta especial'}</div><div class="coupon-desc">${r.descripcion||''}</div><div class="coupon-divider"></div><div class="coupon-code-row"><span class="code-box">${maskCode(r.codigo)}</span><span class="cta-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copiar y abrir</span></div><div class="coupon-uses" data-key="${key}">${formatUses(usageCounts[key]||0)}</div>`;const usesEl=btn.querySelector('.uses');btn.addEventListener('click',()=>{if(r.codigo&&navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(r.codigo).catch(()=>{});showToast('Código '+r.codigo+' copiado ✓')}registerUsage(key,usesEl)});grid.appendChild(btn)})}
+function fetchUsageCounts(){document.querySelectorAll('.coupon-uses[data-key]').forEach(el=>{const key=el.getAttribute('data-key');fetch(COUNTER_BASE+'/get/'+key).then(r=>r.json()).then(data=>{const n=parseInt(data.value,10);if(!isNaN(n)){usageCounts[key]=n;el.textContent=formatUses(n)}}).catch(()=>{})})}
+function registerUsage(key,el){const optimistic=(usageCounts[key]||0)+1;usageCounts[key]=optimistic;if(el)el.textContent=formatUses(optimistic);fetch(COUNTER_BASE+'/hit/'+key).then(r=>r.json()).then(data=>{const n=parseInt(data.value,10);if(!isNaN(n)&&el){usageCounts[key]=n;el.textContent=formatUses(n)}}).catch(()=>{});const gkey=COUNTER_NAMESPACE+'_global_savers';fetch(COUNTER_BASE+'/hit/'+gkey).then(r=>r.json()).then(data=>{const n=parseInt(data.value,10);if(!isNaN(n)){document.getElementById('saversCount').textContent='+'+n.toLocaleString('es-MX');document.getElementById('sidebarCounter').textContent='+'+(n>1000?(n/1000).toFixed(0)+'k':n)}}).catch(()=>{})}
+function parseExpiry(raw){if(!raw)return null;const str=raw.toString().trim();if(!str)return null;let m=str.match(/^(\d{4})-(\d{1,2})-(\d{1,2})[ T](\d{1,2}):(\d{2})(?::(\d{2}))?$/);if(m)return new Date(+m[1],+m[2]-1,+m[3],+m[4],+m[5],+(m[6]||0));m=str.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);if(m)return new Date(+m[1],+m[2]-1,+m[3],23,59,59);m=str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})[ ]?(\d{1,2})?:?(\d{2})?$/);if(m)return new Date(+m[3],+m[2]-1,+m[1],+(m[4]||23),+(m[5]||59),0);const fb=new Date(str);return isNaN(fb.getTime())?null:fb}
+function formatCountdown(expiry){const diff=expiry.getTime()-Date.now();if(diff<=0)return null;const mins=Math.floor(diff/60000);const hours=Math.floor(mins/60);const days=Math.floor(hours/24);if(days>0)return days+'d '+(hours%24)+'h';if(hours>0)return hours+'h '+(mins%60)+'m';return Math.max(1,mins)+'m'}
+function renderGrid(activos){const grid=document.getElementById('grid');const status=document.getElementById('status');grid.innerHTML="";if(activos.length===0){status.style.display="none";grid.innerHTML=`<div class="no-results" style="grid-column:1/-1;"><h3>No encontramos cupones con esa búsqueda</h3><p>Prueba con otro término o revisa todas las tiendas.</p><button id="clearFiltersBtn">Ver todos los cupones</button></div>`;document.getElementById('clearFiltersBtn').addEventListener('click',()=>{document.getElementById('searchInput').value="";selectChip('Todos')});return}activos.forEach((r,i)=>{const link=ensureUrl(r.link)||'#';if(!link||link==='#')return;const expiry=parseExpiry(r.vence);const countdown=expiry?formatCountdown(expiry):null;const isExpired=!!(expiry&&!countdown);const storeName=r.tienda||'Mercado Libre';const key=couponKey(r);let badgeHtml;if(isExpired){badgeHtml=`<span class="verified-badge expired-badge">❌ Cupón agotado</span>`}else if(countdown){badgeHtml=`<span class="verified-badge countdown-badge">⏱ Vence en ${countdown}</span>`}else{badgeHtml=`<span class="verified-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Verificado hoy</span>`}
+const btn=document.createElement(isExpired?'div':'a');btn.className='coupon'+(isExpired?' expired':'');if(!isExpired){btn.href=link;btn.target='_blank';btn.rel='noopener sponsored'}btn.setAttribute('aria-label','Cupón de '+storeName+': '+(r.descuento||'Oferta')+(isExpired?' (agotado)':''));btn.innerHTML=`<div class="coupon-head"><div class="coupon-store"><div class="store-logo">${storeName.charAt(0).toUpperCase()}</div><span class="store-name">${storeName}</span></div>${badgeHtml}</div><div class="coupon-discount">${r.descuento||'Oferta especial'}</div><div class="coupon-desc">${r.descripcion||''}</div><div class="coupon-divider"></div><div class="coupon-code-row"><span class="code-box">${isExpired?'AGOTADO':maskCode(r.codigo)}</span><span class="cta-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>${isExpired?'Agotado':'Copiar y abrir'}</span></div><div class="coupon-uses" data-key="${key}">${formatUses(usageCounts[key]||0)}</div>`;if(!isExpired){const usesEl=btn.querySelector('.coupon-uses');btn.addEventListener('click',()=>{if(r.codigo&&navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(r.codigo).catch(()=>{});showToast('Código '+r.codigo+' copiado ✓')}registerUsage(key,usesEl)})}grid.appendChild(btn)});if(!grid.children.length){status.style.display="block";status.innerHTML="Estos cupones no tienen un link válido configurado. Revisa la columna <b>link</b> en tu Google Sheet."}}
 function renderCoupons(rows){const status=document.getElementById('status');allCoupons=rows.filter(r=>(r.activo||"").toString().trim().toLowerCase()!=="no");if(allCoupons.length===0){document.getElementById('grid').innerHTML="";status.textContent="No hay cupones activos en este momento. Vuelve más tarde.";status.style.display="block";document.getElementById('chipRow').innerHTML="";return}status.style.display="none";buildChips(allCoupons);activeStore="Todos";applyFilters();fetchUsageCounts()}
 function showRetryError(msg){const status=document.getElementById('status');status.innerHTML=msg+' <button id="retryLoadBtn" style="margin-left:8px;background:var(--navy);color:var(--white);border:none;padding:8px 18px;border-radius:999px;font-weight:800;cursor:pointer;font-family:inherit;">Reintentar</button>';status.style.display="block";document.getElementById('retryLoadBtn').addEventListener('click',loadCoupons)}
-function loadCoupons(){const status=document.getElementById('status');if(!SHEET_CSV_URL||SHEET_CSV_URL.includes("PEGA_AQUI")){document.getElementById('grid').innerHTML="";status.innerHTML="Configura tu <b>SHEET_CSV_URL</b> dentro del código para conectar tu Google Sheet.";status.style.display="block";return}if(allCoupons.length===0){try{const cached=JSON.parse(localStorage.getItem(COUPONS_CACHE_KEY)||'null');if(cached&&Array.isArray(cached.rows)&&cached.rows.length)renderCoupons(cached.rows)}catch(e){}}fetchCsvText(SHEET_CSV_URL).then(text=>{const parsed=Papa.parse(text,{header:true,skipEmptyLines:true});const rows=parsed.data.map(normalizeRow);renderCoupons(rows);try{localStorage.setItem(COUPONS_CACHE_KEY,JSON.stringify({rows,ts:Date.now()}))}catch(e){}}).catch(()=>{if(allCoupons.length===0){document.getElementById('grid').innerHTML="";showRetryError("No se pudo cargar la hoja de cupones. Revisa tu conexión.")}})}
-loadCoupons();setInterval(loadCoupons,5*60*1000);
+function loadCoupons(){const status=document.getElementById('status');if(!SHEET_CSV_URL||SHEET_CSV_URL.includes("PEGA_AQUI")){document.getElementById('grid').innerHTML="";status.innerHTML="Configura tu <b>SHEET_CSV_URL</b> dentro del código para conectar tu Google Sheet.";status.style.display="block";return}if(allCoupons.length===0){try{const cached=JSON.parse(localStorage.getItem(COUPONS_CACHE_KEY)||'null');if(cached&&Array.isArray(cached.rows)&&cached.rows.length)renderCoupons(cached.rows)}catch(e){}}fetchCsvText(SHEET_CSV_URL).then(text=>{const parsed=Papa.parse(text,{header:true,skipEmptyLines:true});const rows=parsed.data.map(normalizeRow);renderCoupons(rows);lastSuccessfulFetch=Date.now();updateUpdatedAgo();try{localStorage.setItem(COUPONS_CACHE_KEY,JSON.stringify({rows,ts:Date.now()}))}catch(e){}}).catch(()=>{if(allCoupons.length===0){document.getElementById('grid').innerHTML="";showRetryError("No se pudo cargar la hoja de cupones. Revisa tu conexión.")}})}
+function updateUpdatedAgo(){const el=document.getElementById('updatedAgo');if(!el)return;if(!lastSuccessfulFetch){el.textContent='un momento';return}const diffMs=Date.now()-lastSuccessfulFetch;const mins=Math.floor(diffMs/60000);let text;if(mins<1)text='instantes';else if(mins===1)text='1 minuto';else if(mins<60)text=mins+' minutos';else{const hrs=Math.floor(mins/60);text=(hrs===1?'1 hora':hrs+' horas')}el.textContent='hace '+text}
+loadCoupons();setInterval(loadCoupons,5*60*1000);setInterval(updateUpdatedAgo,30*1000);setInterval(()=>{if(allCoupons.length)applyFilters()},60*1000);
 if(YOUTUBE_VIDEO_ID){const container=document.getElementById('videoContainer');container.innerHTML=`<iframe src="https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}" title="Cómo usar El Tío Cupones" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`}
-function updateSavers(){const key=COUNTER_NAMESPACE+'_global_savers';fetch(COUNTER_BASE+'/get/'+key).then(r=>r.json()).then(data=>{const n=parseInt(data.value,10);if(!isNaN(n)){document.getElementById('saversCount').textContent='+'+n.toLocaleString('es-MX');document.getElementById('sidebarCounter').textContent='+'+(n>1000?(n/1000).toFixed(0)+'k':n)}}).catch(()=>{})}
+function updateSavers(){const key=COUNTER_NAMESPACE+'_global_savers';fetch(COUNTER_BASE+'/get/'+key).then(r=>r.json()).then(data=>{const n=parseInt(data.value,10);if(!isNaN(n)){document.getElementById('saversCount').textContent='+'+n.toLocaleString('es-MX');document.getElementById('sidebarCounter').textContent='+'+(n>1000?(n/1000).toFixed(0)+'k':n)}}).catch(()=>{const sc=document.getElementById('saversCount');const sb=document.getElementById('sidebarCounter');if(sc&&sc.textContent==='···')sc.textContent='varias';if(sb&&sb.textContent==='···')sb.textContent='—'})}
 updateSavers();
 </script>
 </body>
