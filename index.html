@@ -17,7 +17,7 @@
 :root{--yellow:#F5C518;--yellow-light:#FFF8E1;--yellow-dark:#D4A017;--navy:#1a1f3c;--navy-light:#2d3561;--navy-soft:rgba(26,31,60,0.06);--red:#e74c3c;--green:#27ae60;--green-dark:#1e8449;--white:#ffffff;--cream:#FFFBF0;--gray-50:#f8f9fa;--gray-100:#f1f3f4;--gray-200:#e8eaed;--gray-300:#dadce0;--gray-600:#5f6368;--gray-700:#444746;--gray-800:#3c4043;--shadow-sm:0 1px 2px rgba(0,0,0,0.04);--shadow:0 4px 12px rgba(0,0,0,0.06);--shadow-md:0 8px 20px rgba(0,0,0,0.08);--shadow-lg:0 12px 32px rgba(0,0,0,0.12);--radius:14px;--radius-lg:18px;--radius-full:999px;--max-width:1200px;--header-height:64px}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--gray-50);color:var(--gray-800);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--gray-50);color:var(--gray-800);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:60px}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;border-radius:4px}
 .nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--gray-200);height:var(--header-height)}
 .nav-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:100%}
@@ -92,10 +92,11 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 .coupon-store{display:flex;align-items:center;gap:8px}
 .store-logo{width:32px;height:32px;border-radius:8px;background:var(--yellow-light);display:flex;align-items:center;justify-content:center;font-size:14px;border:1px solid var(--gray-200)}
 .store-name{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy)}
-.verified-badge{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:800;color:var(--green);background:rgba(39,174,96,0.08);padding:3px 8px;border-radius:var(--radius-full);white-space:nowrap}
+.verified-badge{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:800;color:var(--green);background:rgba(39,174,96,0.08);padding:5px 11px;border-radius:var(--radius-full);white-space:nowrap}
+.verified-badge svg{width:14px;height:14px}
 .verified-badge svg{width:10px;height:10px}
 .coupon-discount{font-family:'Luckiest Guy','Arial Black',sans-serif;font-weight:400;font-size:26px;line-height:1.1;text-transform:uppercase;color:var(--red);letter-spacing:0.5px}
-.coupon-desc{font-size:13px;color:var(--gray-700);line-height:1.45;min-height:18px}
+.coupon-desc{font-size:16px;color:var(--blue,#1a56db);font-weight:700;line-height:1.45;min-height:18px}
 .coupon-divider{height:1px;background:repeating-linear-gradient(90deg,var(--gray-300),var(--gray-300) 6px,transparent 6px,transparent 12px);margin:2px 0}
 .coupon-code-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .code-box{font-family:'Courier New',monospace;font-weight:900;font-size:14px;letter-spacing:0.06em;background:var(--navy-soft);color:var(--navy);padding:8px 12px;border-radius:8px;border:1.5px dashed var(--gray-300);flex:1;text-align:center}
@@ -188,10 +189,11 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 .coupon{padding:12px;gap:6px;border-radius:10px;border-top-width:3px}
 .store-logo{width:26px;height:26px;font-size:11px;border-radius:6px}
 .store-name{font-size:10px}
-.verified-badge{font-size:8px;padding:2px 6px;gap:2px}
+.verified-badge{font-size:11px;padding:4px 9px;gap:3px}
+.verified-badge svg{width:11px;height:11px}
 .verified-badge svg{width:8px;height:8px}
 .coupon-discount{font-size:18px}
-.coupon-desc{font-size:11px;min-height:0;line-height:1.35}
+.coupon-desc{font-size:13px;font-weight:700;min-height:0;line-height:1.35}
 .coupon-divider{margin:0}
 .code-box{padding:6px 8px;font-size:12px;border-radius:6px}
 .cta-btn{padding:7px 10px;font-size:9px;gap:4px;border-radius:6px}
@@ -389,10 +391,10 @@ const btn=document.createElement(isExpired?'div':'a');btn.className='coupon'+(is
 function renderCoupons(rows){const status=document.getElementById('status');allCoupons=rows.filter(r=>(r.activo||"").toString().trim().toLowerCase()!=="no");if(allCoupons.length===0){document.getElementById('grid').innerHTML="";status.textContent="No hay cupones activos en este momento. Vuelve más tarde.";status.style.display="block";document.getElementById('chipRow').innerHTML="";return}status.style.display="none";buildChips(allCoupons);activeStore="Todos";applyFilters();fetchUsageCounts()}
 function showRetryError(msg){const status=document.getElementById('status');status.innerHTML=msg+' <button id="retryLoadBtn" style="margin-left:8px;background:var(--navy);color:var(--white);border:none;padding:8px 18px;border-radius:999px;font-weight:800;cursor:pointer;font-family:inherit;">Reintentar</button>';status.style.display="block";document.getElementById('retryLoadBtn').addEventListener('click',loadCoupons)}
 function loadCoupons(){const status=document.getElementById('status');if(!SHEET_CSV_URL||SHEET_CSV_URL.includes("PEGA_AQUI")){document.getElementById('grid').innerHTML="";status.innerHTML="Configura tu <b>SHEET_CSV_URL</b> dentro del código para conectar tu Google Sheet.";status.style.display="block";return}if(allCoupons.length===0){try{const cached=JSON.parse(localStorage.getItem(COUPONS_CACHE_KEY)||'null');if(cached&&Array.isArray(cached.rows)&&cached.rows.length)renderCoupons(cached.rows)}catch(e){}}fetchCsvText(SHEET_CSV_URL).then(text=>{const parsed=Papa.parse(text,{header:true,skipEmptyLines:true});const rows=parsed.data.map(normalizeRow);renderCoupons(rows);lastSuccessfulFetch=Date.now();updateUpdatedAgo();try{localStorage.setItem(COUPONS_CACHE_KEY,JSON.stringify({rows,ts:Date.now()}))}catch(e){}}).catch(()=>{if(allCoupons.length===0){document.getElementById('grid').innerHTML="";showRetryError("No se pudo cargar la hoja de cupones. Revisa tu conexión.")}})}
-function updateUpdatedAgo(){const el=document.getElementById('updatedAgo');if(!el)return;if(!lastSuccessfulFetch){el.textContent='un momento';return}const diffMs=Date.now()-lastSuccessfulFetch;const mins=Math.floor(diffMs/60000);let text;if(mins<1)text='instantes';else if(mins===1)text='1 minuto';else if(mins<60)text=mins+' minutos';else{const hrs=Math.floor(mins/60);text=(hrs===1?'1 hora':hrs+' horas')}el.textContent='hace '+text}
+function updateUpdatedAgo(){const el=document.getElementById('updatedAgo');if(!el)return;if(!lastSuccessfulFetch){el.textContent='un momento';return}const diffMs=Date.now()-lastSuccessfulFetch;const mins=Math.floor(diffMs/60000);let text;if(mins<1)text='instantes';else if(mins===1)text='1 minuto';else if(mins<60)text=mins+' minutos';else{const hrs=Math.floor(mins/60);text=(hrs===1?'1 hora':hrs+' horas')}el.textContent=text}
 loadCoupons();setInterval(loadCoupons,5*60*1000);setInterval(updateUpdatedAgo,30*1000);setInterval(()=>{if(allCoupons.length)applyFilters()},60*1000);
 if(YOUTUBE_VIDEO_ID){const container=document.getElementById('videoContainer');container.innerHTML=`<iframe src="https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}" title="Cómo usar El Tío Cupones" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`}
-function updateSavers(){const key=COUNTER_NAMESPACE+'_global_savers';fetch(COUNTER_BASE+'/get/'+key).then(r=>r.json()).then(data=>{const n=parseInt(data.value,10);if(!isNaN(n)){document.getElementById('saversCount').textContent='+'+n.toLocaleString('es-MX');document.getElementById('sidebarCounter').textContent='+'+(n>1000?(n/1000).toFixed(0)+'k':n)}}).catch(()=>{const sc=document.getElementById('saversCount');const sb=document.getElementById('sidebarCounter');if(sc&&sc.textContent==='···')sc.textContent='varias';if(sb&&sb.textContent==='···')sb.textContent='—'})}
+function updateSavers(){const key=COUNTER_NAMESPACE+'_global_savers';const sc=document.getElementById('saversCount');const sb=document.getElementById('sidebarCounter');const fallback=()=>{if(sc)sc.textContent='varias';if(sb)sb.textContent='—'};fetch(COUNTER_BASE+'/get/'+key).then(r=>r.json()).then(data=>{const n=parseInt(data.value,10);if(!isNaN(n)&&n>0){if(sc)sc.textContent='+'+n.toLocaleString('es-MX');if(sb)sb.textContent='+'+(n>1000?(n/1000).toFixed(0)+'k':n)}else{fallback()}}).catch(fallback)}
 updateSavers();
 </script>
 </body>
