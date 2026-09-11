@@ -90,6 +90,30 @@
   .badge-label{ font-size:10.5px; font-weight:800; color: var(--navy-deep); line-height:1.2; text-transform:uppercase; }
   @media (max-width:520px){ .badges{ grid-template-columns: repeat(2,1fr); } }
 
+  /* Banner "¿Cómo usar el cupón?" */
+  .howto{
+    max-width:960px; margin: 26px auto 0; padding: 0 16px;
+  }
+  .howto-box{
+    display:flex; align-items:center; gap:14px;
+    background: var(--white); border:2px solid var(--navy);
+    border-radius:16px; padding:16px 20px; box-shadow: 0 5px 0 var(--navy);
+  }
+  .howto-icon{
+    flex-shrink:0; width:44px; height:44px; border-radius:50%;
+    background: var(--navy); color:var(--white); display:flex; align-items:center;
+    justify-content:center; font-size:20px;
+  }
+  .howto-text{ font-size:13.5px; line-height:1.45; color: var(--ink); }
+  .howto-text strong{
+    display:block; font-size:15px; color: var(--navy-deep); margin-bottom:2px;
+    text-transform:uppercase; letter-spacing:.02em;
+  }
+  @media (max-width:520px){
+    .howto-box{ padding:14px 16px; gap:10px; }
+    .howto-icon{ width:38px; height:38px; font-size:17px; }
+  }
+
   main{ max-width:960px; margin:0 auto; padding: 34px 16px 40px; }
 
   /* Buscador y filtros de tienda */
@@ -138,21 +162,21 @@
   .coupon::before{ left:-10px; }
   .coupon::after{ right:-10px; }
   .store-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
-  .store{ font-size:11px; text-transform:uppercase; letter-spacing:.15em; font-weight:900; color: var(--navy); }
+  .store{ font-size:14px; text-transform:uppercase; letter-spacing:.1em; font-weight:900; color: var(--navy); }
   .verified{ font-size:9.5px; font-weight:800; color: var(--sage-dark); background: rgba(91,133,113,.12); padding:3px 8px; border-radius:999px; white-space:nowrap; }
   .discount{ font-family: 'Luckiest Guy', 'Arial Black', sans-serif; font-weight:400; font-size: 28px; line-height:1.1; text-transform:uppercase; color: var(--red); letter-spacing:.01em; }
   .desc{ font-size:13px; color:#5a5142; min-height:16px; }
   .divider{ border-top:2px dashed var(--sage-deep); margin:4px 0; }
   .code-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
   .code{ font-family:'Courier New',monospace; font-weight:900; font-size:15px; letter-spacing:.08em; background: var(--navy); color: var(--white); padding:6px 10px; border-radius:6px; }
-  .cta{ font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.06em; color: var(--red); }
-  .uses{ font-size:11px; font-weight:700; color: var(--sage-dark); display:flex; align-items:center; gap:5px; }
+  .cta{ font-size:13px; font-weight:900; text-transform:uppercase; letter-spacing:.04em; color: var(--red); }
+  .uses{ font-size:12.5px; font-weight:900; color: var(--sage-dark); display:flex; align-items:center; gap:5px; }
   .no-results{ text-align:center; padding:40px 16px; color: var(--navy-deep); font-weight:700; }
   .no-results button{ margin-top:10px; background:var(--navy); color:var(--white); border:none; padding:8px 18px; border-radius:999px; font-weight:800; cursor:pointer; font-family:inherit; }
 
   /* Contador de vencimiento por cupón */
-  .countdown{ font-size:11px; font-weight:800; color: var(--sage-dark); display:flex; align-items:center; gap:5px; }
-  .countdown.expired{ color: var(--red); font-weight:900; text-transform:uppercase; letter-spacing:.03em; }
+  .countdown{ font-size:12.5px; font-weight:900; color: var(--sage-dark); display:flex; align-items:center; gap:5px; }
+  .countdown.expired{ font-size:13px; color: var(--red); font-weight:900; text-transform:uppercase; letter-spacing:.03em; }
 
   /* Aviso legal de transparencia (independiente / links de afiliado) */
   .disclosure{
@@ -262,6 +286,16 @@
   <div class="badge"><div class="badge-icon">❤️</div><div class="badge-label">Miles de productos</div></div>
 </div>
 
+<div class="howto">
+  <div class="howto-box">
+    <div class="howto-icon">👆</div>
+    <div class="howto-text">
+      <strong>¿Cómo usar el cupón?</strong>
+      Toca un cupón, copiamos el código automáticamente y te llevamos directo a la oferta en Mercado Libre. Sin vueltas, sin buscar.
+    </div>
+  </div>
+</div>
+
 <main>
   <div class="filters">
     <div class="search-row">
@@ -312,12 +346,20 @@
    CONFIGURACIÓN — esto es lo único que necesitas cambiar UNA VEZ
    =========================================================
    1. Crea una Google Sheet con estas columnas exactas en la fila 1:
-      tienda | descuento | descripcion | codigo | link | activo | vence
+      tienda | descuento | descripcion | codigo | link | activo | vence | color
       - "vence" es OPCIONAL. Si la llenas, con fecha y hora en formato
         "AAAA-MM-DD HH:MM" (ej. 2026-08-15 23:59), el cupón mostrará un
         contador regresivo y al llegar esa fecha se marcará "AGOTADO"
         en rojo (pero seguirá siendo cliqueable, tal como pediste).
         Si la dejas vacía, el cupón se muestra como vigente siempre.
+      - "color" es OPCIONAL. Ahí decides el color de fondo de ESE cupón,
+        para diferenciar tipos (ej. amarillo para Mercado Libre, rojo para
+        bancarios, verde para otro tipo, etc.). Puedes escribir el nombre
+        en español: amarillo, rojo, verde, azul, celeste, morado, rosa,
+        naranja, gris, negro, blanco, cafe, turquesa, dorado; o pegar un
+        código hexadecimal (ej. #FFD100). Si la dejas vacía, el cupón se
+        ve con su color crema normal. El texto cambia solo a blanco
+        cuando el fondo es oscuro, para que siempre se pueda leer bien.
    2. Archivo > Compartir > Publicar en la web > selecciona la hoja
       y el formato "Valores separados por comas (.csv)" > Publicar
    3. Pega esa URL aquí abajo en SHEET_CSV_URL
@@ -490,6 +532,49 @@ function maskCode(code){
   const visibleCount = Math.min(3, code.length);
   const visible = code.slice(0, visibleCount);
   return visible + '****';
+}
+
+// Colores rápidos en español para la columna opcional "color" del Sheet.
+// Así tú (o quien llene la hoja) puede escribir "amarillo", "rojo", "verde", etc.
+// sin necesitar saber códigos hexadecimales. También acepta un código hex
+// directo (ej. #FFD100) o cualquier nombre de color en inglés que entienda
+// el navegador (ej. "gold").
+const COLOR_NAMES = {
+  amarillo: '#FFC72C', rojo: '#E53935', verde: '#43A047', azul: '#1E88E5',
+  celeste: '#4FC3F7', morado: '#8E24AA', purpura: '#8E24AA', rosa: '#EC407A',
+  naranja: '#FB8C00', gris: '#9E9E9E', negro: '#2b2b2b', blanco: '#FFFFFF',
+  cafe: '#795548', turquesa: '#00ACC1', dorado: '#D4AF37'
+};
+
+// Convierte lo que haya en la columna "color" del Sheet a un color CSS válido.
+// Si está vacío o no se reconoce, regresa null y el cupón usa su color
+// crema de siempre (no se altera nada del cupón en ese caso).
+function resolveCouponColor(value){
+  if(!value) return null;
+  const raw = value.toString().trim().toLowerCase();
+  if(!raw) return null;
+  return COLOR_NAMES[raw] || value.toString().trim();
+}
+
+// Decide si el texto de ese cupón debe verse oscuro (color normal del sitio)
+// o blanco, según qué tan claro/oscuro sea el color de fondo elegido, para
+// que siempre se pueda leer bien sin importar el color que elijas.
+function getReadableTextColor(cssColor){
+  try{
+    const probe = document.createElement('span');
+    probe.style.display = 'none';
+    probe.style.color = cssColor;
+    document.body.appendChild(probe);
+    const computed = getComputedStyle(probe).color;
+    document.body.removeChild(probe);
+    const nums = computed.match(/\d+(\.\d+)?/g);
+    if(!nums || nums.length < 3) return null;
+    const [r, g, b] = nums.map(Number);
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance < 0.6 ? '#ffffff' : null; // null = deja el color normal (oscuro) del sitio
+  }catch(e){
+    return null;
+  }
 }
 
 function buildChips(rows){
@@ -688,6 +773,19 @@ function renderGrid(activos){
         ${vence ? `<span class="countdown" data-vence="${vence.getTime()}"></span>` : ''}
       </div>
     `;
+    // Color de fondo opcional (columna "color" en el Sheet). Si la celda
+    // está vacía, el cupón se ve exactamente igual que siempre (crema).
+    const couponColor = resolveCouponColor(r.color);
+    if(couponColor){
+      btn.style.backgroundColor = couponColor;
+      const textColor = getReadableTextColor(couponColor);
+      if(textColor){
+        ['.store', '.discount', '.desc', '.cta', '.uses', '.countdown'].forEach(sel => {
+          const el = btn.querySelector(sel);
+          if(el) el.style.color = textColor;
+        });
+      }
+    }
     const usesEl = btn.querySelector('.uses');
     if(vence){
       tickCountdowns(); // pinta el estado inicial de inmediato, sin esperar 1s
