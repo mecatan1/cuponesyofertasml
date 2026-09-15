@@ -515,6 +515,62 @@ function showToast(msg){
   setTimeout(()=> t.classList.remove('show'), 1800);
 }
 
+// ARREGLO DEL BUG DE COPIADO EN IPHONE/SAFARI: copia el código al
+// portapapeles de forma SÍNCRONA con document.execCommand('copy'), en vez
+// de depender solo de navigator.clipboard.writeText() (que es asíncrono).
+//
+// Por qué a veces fallaba y a veces no:
+// El cupón sigue siendo un <a target="_blank"> real con tu link de afiliado
+// tal cual (eso NO se toca, para no arriesgar tus comisiones). En cuanto
+// termina el clic, el navegador empieza a abrir Mercado Libre en una
+// pestaña nueva. navigator.clipboard.writeText() es una Promesa: en PC
+// casi siempre alcanza a resolverse antes de que la página cambie de foco,
+// pero en Safari de iPhone ese cambio de foco hacia la pestaña nueva puede
+// cancelar la Promesa a medias y en silencio (nunca marca error, solo no
+// llega a copiar). Por eso a veces sí funcionaba y a veces no: dependía de
+// qué tan rápido respondía el teléfono en ese instante.
+// execCommand('copy') ocurre en el mismo instante síncrono del clic, ANTES
+// de que el navegador procese la navegación del link, así que siempre
+// alcanza a completarse, sin importar el dispositivo ni qué tan rápido o
+// lento esté el teléfono.
+function copyToClipboard(text){
+  if(!text) return false;
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.style.position = 'fixed';
+  textarea.style.top = '0';
+  textarea.style.left = '0';
+  textarea.style.width = '2em';
+  textarea.style.height = '2em';
+  textarea.style.padding = '0';
+  textarea.style.border = 'none';
+  textarea.style.outline = 'none';
+  textarea.style.boxShadow = 'none';
+  textarea.style.background = 'transparent';
+  textarea.style.opacity = '0';
+  textarea.style.fontSize = '16px'; // evita el zoom automático de iOS al enfocar el campo
+  document.body.appendChild(textarea);
+  const selection = document.getSelection();
+  const originalRange = (selection && selection.rangeCount > 0) ? selection.getRangeAt(0) : null;
+  textarea.focus();
+  textarea.select();
+  textarea.setSelectionRange(0, textarea.value.length); // requerido específicamente por iOS Safari
+  let success = false;
+  try{ success = document.execCommand('copy'); }catch(e){ success = false; }
+  document.body.removeChild(textarea);
+  if(selection){
+    selection.removeAllRanges();
+    if(originalRange) selection.addRange(originalRange);
+  }
+  // Respaldo silencioso con la API moderna cuando el navegador la soporte.
+  // No retrasa ni bloquea nada: si execCommand ya funcionó, esto es solo
+  // una confirmación extra que corre en paralelo.
+  if(navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext){
+    navigator.clipboard.writeText(text).catch(()=>{});
+  }
+  return success;
+}
+
 function normalizeRow(row){
   const out = {};
   Object.keys(row).forEach(k => {
@@ -797,8 +853,8 @@ function renderGrid(activos){
     // la rueda del mouse, o mantener presionado en móvil.
     btn.addEventListener('click', () => {
       if(r.codigo){
-        navigator.clipboard.writeText(r.codigo).catch(()=>{});
-        showToast('Código ' + r.codigo + ' copiado ✓');
+        const copiado = copyToClipboard(r.codigo);
+        showToast(copiado ? ('Código ' + r.codigo + ' copiado ✓') : ('Tu código: ' + r.codigo));
       }
       registerUsage(key, usesEl);
     });
