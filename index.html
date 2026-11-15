@@ -13,8 +13,6 @@
 <meta property="og:description" content="Códigos de descuento de Mercado Libre actualizados todos los días.">
 <meta name="twitter:card" content="summary">
 
-<!-- NOTA: la mascota ahora es un archivo aparte (mascota.webp) que debe estar
-     en la misma carpeta que este index.html en GitHub. -->
 <link rel="icon" type="image/webp" href="mascota.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +40,7 @@
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
   }
-  a:focus-visible, button:focus-visible, input:focus-visible{
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
     outline: 3px solid var(--navy); outline-offset: 2px;
   }
   .confetti{ position:absolute; width:34px; height:34px; opacity:.55; pointer-events:none; }
@@ -84,7 +82,7 @@
     text-shadow: 0 3px 0 rgba(0,0,0,.2);
   }
   .sub{ color: var(--navy-deep); font-weight:700; margin-top:16px; font-size:15px; }
-  .updated{ display:inline-block; margin-top:14px; padding:6px 16px; background: rgba(255,255,255,.6); border-radius:999px; font-size:12px; font-weight:700; color: var(--navy-deep); }
+  .updated{ display:inline-block; margin-top:14px; padding:6px 16px; background: rgba(255,255,255,.65); border-radius:999px; font-size:12px; font-weight:800; color: var(--navy-deep); }
 
   .badges{
     max-width: 960px; margin: -22px auto 0; position:relative; z-index:2;
@@ -119,7 +117,7 @@
     .howto-icon{ width:38px; height:38px; font-size:17px; }
   }
 
-  main{ max-width:960px; margin:0 auto; padding: 34px 16px 40px; }
+  main{ max-width:960px; margin:0 auto; padding: 28px 16px 40px; }
 
   /* Buscador y filtros de tienda */
   .filters{ margin-bottom:22px; }
@@ -134,12 +132,12 @@
   .search-input::placeholder{ color:#8a9a90; font-weight:600; }
   .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
   .chip{
-    border:2px solid var(--navy); background: transparent; color: var(--navy-deep);
+    border:2px solid var(--navy); background: rgba(255,255,255,.35); color: var(--navy-deep);
     font-weight:800; font-size:12px; text-transform:uppercase; letter-spacing:.03em;
-    padding:7px 14px; border-radius:999px; cursor:pointer; font-family:inherit;
+    padding:8px 15px; border-radius:999px; cursor:pointer; font-family:inherit;
     transition: all .15s ease;
   }
-  .chip:hover{ background: rgba(255,255,255,.5); }
+  .chip:hover{ background: rgba(255,255,255,.65); }
   .chip.active{ background: var(--navy); color: var(--white); }
 
   #status{ text-align:center; color: var(--navy-deep); font-weight:700; padding:40px 0; font-size:14px; }
@@ -155,7 +153,7 @@
 
   .coupon{
     position:relative; background: var(--cream); color: var(--ink);
-    border-radius:14px; padding:20px 20px 18px; display:flex; flex-direction:column; gap:10px;
+    border-radius:14px; padding:20px 20px 16px; display:flex; flex-direction:column; gap:10px;
     text-align:left; cursor:pointer; border: 2px solid var(--sage-dark); font-family:inherit;
     text-decoration:none;
     transform:rotate(var(--r,0deg)); transition: transform .15s ease, box-shadow .15s ease;
@@ -166,24 +164,41 @@
   .coupon::before, .coupon::after{ content:""; position:absolute; width:20px; height:20px; background: var(--sage); border-radius:50%; top:50%; transform:translateY(-50%); }
   .coupon::before{ left:-10px; }
   .coupon::after{ right:-10px; }
-  .store-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
-  .store{ font-size:14px; text-transform:uppercase; letter-spacing:.1em; font-weight:900; color: var(--navy); }
-  .verified{ font-size:9.5px; font-weight:800; color: var(--sage-dark); background: rgba(91,133,113,.12); padding:3px 8px; border-radius:999px; white-space:nowrap; }
-  .discount{ font-family: 'Luckiest Guy', 'Arial Black', sans-serif; font-weight:400; font-size: 28px; line-height:1.1; text-transform:uppercase; color: var(--red); letter-spacing:.01em; }
-  .desc{ font-size:17px; color:#5a5142; min-height:16px; }
-  .divider{ border-top:2px dashed var(--sage-deep); margin:4px 0; }
+  .store-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
+  .store{ font-size:13.5px; text-transform:uppercase; letter-spacing:.08em; font-weight:900; color: var(--navy); }
+  .badges-right{ display:flex; align-items:center; gap:5px; }
+  .pop-badge{ font-size:9.5px; font-weight:900; background:#ffebee; color:#c62828; border:1px solid #ef9a9a; padding:2px 7px; border-radius:999px; text-transform:uppercase; }
+  .verified{ font-size:9.5px; font-weight:800; color: var(--sage-dark); background: rgba(91,133,113,.14); padding:3px 8px; border-radius:999px; white-space:nowrap; }
+  .discount{ font-family: 'Luckiest Guy', 'Arial Black', sans-serif; font-weight:400; font-size: 29px; line-height:1.1; text-transform:uppercase; color: var(--red); letter-spacing:.01em; }
+  .desc{ font-size:16px; font-weight:700; color:#4a4235; min-height:16px; }
+  .divider{ border-top:2px dashed var(--sage-deep); margin:2px 0; }
   .code-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
   .code{ font-family:'Courier New',monospace; font-weight:900; font-size:15px; letter-spacing:.08em; background: var(--navy); color: var(--white); padding:6px 10px; border-radius:6px; }
-  .cta{ font-size:13px; font-weight:900; text-transform:uppercase; letter-spacing:.04em; color: var(--red); }
-  .uses{ font-size:12.5px; font-weight:900; color: var(--sage-dark); display:flex; align-items:center; gap:5px; }
+  .cta{ font-size:13px; font-weight:900; text-transform:uppercase; letter-spacing:.04em; color: var(--red); background:rgba(209,72,60,.1); padding:6px 10px; border-radius:8px; }
+  
+  /* Fila de votos estilo Cupones Chapis */
+  .meta-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:2px; padding-top:6px; border-top:1px solid rgba(0,0,0,.06); }
+  .vote-group{ display:flex; align-items:center; gap:6px; z-index:3; }
+  .vote-btn{
+    display:inline-flex; align-items:center; gap:4px;
+    background: rgba(255,255,255,.85); border:1.5px solid var(--sage-dark);
+    color: var(--navy-deep); font-weight:800; font-size:11.5px;
+    padding:4px 9px; border-radius:999px; cursor:pointer; font-family:inherit;
+    transition: transform .12s ease, background .12s ease;
+  }
+  .vote-btn:hover{ background:#fff; transform:scale(1.06); }
+  .vote-btn.voted-up{ background:#e8f5e9; border-color:#2e7d32; color:#1b5e20; }
+  .vote-btn.voted-down{ background:#ffebee; border-color:#c62828; color:#b71c1c; }
+
+  .uses{ font-size:12px; font-weight:900; color: var(--sage-dark); display:flex; align-items:center; gap:4px; }
   .no-results{ text-align:center; padding:40px 16px; color: var(--navy-deep); font-weight:700; }
   .no-results button{ margin-top:10px; background:var(--navy); color:var(--white); border:none; padding:8px 18px; border-radius:999px; font-weight:800; cursor:pointer; font-family:inherit; }
 
   /* Contador de vencimiento por cupón */
-  .countdown{ font-size:12.5px; font-weight:900; color: var(--sage-dark); display:flex; align-items:center; gap:5px; }
-  .countdown.expired{ font-size:13px; color: var(--red); font-weight:900; text-transform:uppercase; letter-spacing:.03em; }
+  .countdown{ font-size:11.5px; font-weight:900; color: var(--sage-dark); display:flex; align-items:center; gap:4px; }
+  .countdown.expired{ font-size:12px; color: var(--red); font-weight:900; text-transform:uppercase; letter-spacing:.03em; }
 
-  /* ===== SECCIÓN OFERTAS (independiente de los cupones) ===== */
+  /* ===== SECCIÓN OFERTAS ===== */
   .ofertas{ max-width:960px; margin:0 auto; padding:10px 16px 30px; }
   .ofertas-head{ text-align:center; margin-bottom:20px; }
   .ofertas-title{
@@ -216,7 +231,6 @@
   .oferta-back-text{ font-size:12.5px; line-height:1.45; color:var(--ink); white-space:pre-line; overflow-y:auto; flex:1; }
   .oferta-uses{ font-size:11.5px; font-weight:900; color:var(--sage-dark); margin-bottom:6px; }
   .oferta-img{ position:relative; background:#fff; aspect-ratio:1/1; overflow:hidden; }
-  /* La foto se coloca dentro del recuadro y se ajusta completa (sin recortarse) */
   .oferta-img img{ position:absolute; top:8px; left:8px; width:calc(100% - 16px); height:calc(100% - 16px); object-fit:contain; display:block; }
   .oferta-badge{
     position:absolute; top:10px; left:10px; background:var(--red); color:var(--white);
@@ -236,13 +250,11 @@
     padding:9px 8px; border-radius:10px;
   }
 
-  /* Aviso legal de transparencia (independiente / links de afiliado) */
   .disclosure{
     max-width:960px; margin:0 auto; padding: 0 16px; text-align:center;
     font-size:11px; color: var(--navy-deep); opacity:.75; line-height:1.5;
   }
 
-  /* Botón flotante de WhatsApp (grupo) */
   .wa-float{
     position:fixed; right:18px; bottom:18px; width:60px; height:60px; border-radius:50%;
     background: var(--wa-green); display:flex; align-items:center; justify-content:center;
@@ -288,7 +300,6 @@
     transition: transform .15s ease, box-shadow .15s ease;
   }
   .social-btn:hover{ transform: translateY(-2px); box-shadow: 0 6px 0 rgba(0,0,0,.12); }
-  .social-btn:active{ transform: translateY(0); box-shadow: 0 2px 0 rgba(0,0,0,.1); }
   .social-btn .ico{
     width:26px; height:26px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
@@ -301,21 +312,85 @@
   .ico-yt{ background:#d1483c; }
   .ico-tt{ background:#16324a; }
 
-  footer{ text-align:center; padding:10px 16px 90px; color: var(--navy-deep); font-size:13px; }
-  footer a{ color: var(--navy); font-weight:800; text-decoration:none; margin:0 8px;}
+  footer{ text-align:center; padding:14px 16px 90px; color: var(--navy-deep); font-size:12px; }
+  .admin-trigger{
+    background:transparent; border:1px solid rgba(20,41,68,.25); color:var(--navy-deep);
+    padding:5px 12px; border-radius:999px; font-size:11px; font-weight:700; opacity:.6; cursor:pointer;
+  }
+  .admin-trigger:hover{ opacity:1; background:rgba(255,255,255,.4); }
 
   .toast{
     position:fixed; left:50%; bottom:70px; transform:translateX(-50%) translateY(20px);
     background: var(--navy); color: var(--white); font-weight:800; padding:12px 20px; border-radius:10px;
-    opacity:0; transition: all .25s ease; pointer-events:none; font-size:14px; z-index:10;
-    max-width:90%; text-align:center;
+    opacity:0; transition: all .25s ease; pointer-events:none; font-size:14px; z-index:200;
+    max-width:90%; text-align:center; box-shadow:0 6px 18px rgba(0,0,0,.25);
   }
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 
-  @media (prefers-reduced-motion: reduce){
-    .coupon, .oferta-wrap, .oferta-flip, .oferta-face, .social-btn, .toast, .chip, .wa-float, .wa-float-label{ transition:none; }
-    .sk-line, .wa-float{ animation:none; }
+  /* ===== PANEL DE ADMINISTRACIÓN PRIVADO ===== */
+  .admin-modal{
+    position:fixed; inset:0; background:rgba(15,28,46,.82); z-index:100;
+    display:none; align-items:flex-start; justify-content:center; overflow-y:auto; padding:20px 12px 60px;
   }
+  .admin-modal.open{ display:flex; }
+  .admin-box{
+    background:var(--cream); border:3px solid var(--navy); border-radius:18px;
+    width:100%; max-width:860px; padding:20px; box-shadow:0 12px 32px rgba(0,0,0,.4);
+  }
+  .admin-header{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    border-bottom:2px dashed var(--sage-deep); padding-bottom:12px; margin-bottom:16px;
+  }
+  .admin-title{ font-family:'Luckiest Guy',sans-serif; font-size:24px; color:var(--navy); margin:0; }
+  .admin-close{
+    background:var(--red); color:#fff; border:none; border-radius:999px;
+    padding:7px 14px; font-weight:800; cursor:pointer; font-size:12px;
+  }
+  .admin-tabs{ display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+  .admin-tab{
+    background:#fff; border:2px solid var(--navy); color:var(--navy);
+    padding:8px 16px; border-radius:999px; font-weight:800; font-size:12.5px; cursor:pointer;
+  }
+  .admin-tab.active{ background:var(--navy); color:#fff; }
+  .admin-form{
+    background:#fff; border:2px solid var(--sage-dark); border-radius:14px;
+    padding:16px; margin-bottom:20px; display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px;
+  }
+  .admin-field{ display:flex; flex-direction:column; gap:4px; }
+  .admin-field.full{ grid-column:1 / -1; }
+  .admin-field label{ font-size:11.5px; font-weight:800; color:var(--navy-deep); text-transform:uppercase; }
+  .admin-field input, .admin-field select, .admin-field textarea{
+    padding:9px 11px; border:1.5px solid var(--sage-deep); border-radius:8px;
+    font-size:13.5px; font-family:inherit; font-weight:600;
+  }
+  .link-status{ font-size:11.5px; font-weight:800; margin-top:2px; }
+  .link-status.ok{ color:#2e7d32; }
+  .link-status.warn{ color:#c62828; }
+  .admin-actions{ grid-column:1 / -1; display:flex; gap:10px; flex-wrap:wrap; margin-top:4px; }
+  .btn-primary{
+    background:var(--wa-green); color:#fff; border:none; padding:11px 20px;
+    border-radius:10px; font-weight:900; font-size:13.5px; cursor:pointer;
+  }
+  .btn-secondary{
+    background:var(--navy); color:#fff; border:none; padding:10px 16px;
+    border-radius:10px; font-weight:800; font-size:12.5px; cursor:pointer;
+  }
+  .admin-list{ display:flex; flex-direction:column; gap:10px; }
+  .admin-item{
+    background:#fff; border:2px solid var(--sage-deep); border-radius:12px;
+    padding:12px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+  }
+  .admin-item.off{ opacity:.55; background:#f2efe9; }
+  .admin-item-info{ flex:1; min-width:200px; }
+  .admin-item-title{ font-weight:900; font-size:14.5px; color:var(--navy-deep); }
+  .admin-item-sub{ font-size:12px; color:#5a5142; margin-top:2px; }
+  .admin-item-btns{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .btn-sm{
+    border:1.5px solid var(--navy); background:#fff; color:var(--navy);
+    padding:5px 10px; border-radius:8px; font-size:11.5px; font-weight:800; cursor:pointer;
+  }
+  .btn-sm.danger{ border-color:var(--red); color:var(--red); }
+  .btn-sm.toggle-on{ background:#e8f5e9; border-color:#2e7d32; color:#1b5e20; }
 </style>
 </head>
 <body>
@@ -334,7 +409,7 @@
   <div class="brand-sub">Cupones y Ofertas ML</div>
   <h1><span class="line1">El Tío</span><span class="accent">Cupones</span></h1>
   <p class="sub">Los mejores cupones y descuentos de Mercado Libre, actualizados hoy</p>
-  <div class="updated" id="lastUpdated">Cargando...</div>
+  <div class="updated" id="lastUpdated">⚡ Cupones verificados en tiempo real</div>
 </header>
 
 <div class="badges">
@@ -357,7 +432,7 @@
 <main>
   <div class="filters">
     <div class="search-row">
-      <input type="text" class="search-input" id="searchInput" placeholder="🔍 Busca por tienda o producto...">
+      <input type="text" class="search-input" id="searchInput" placeholder="🔍 Busca por banco, monto o descripción...">
     </div>
     <div class="chip-row" id="chipRow"></div>
   </div>
@@ -370,7 +445,7 @@
   </div>
 </main>
 
-<!-- ===== OFERTAS (se llena desde la pestaña "Ofertas" del Google Sheet) ===== -->
+<!-- ===== OFERTAS ===== -->
 <section class="ofertas" id="ofertasSection" hidden>
   <div class="ofertas-head">
     <h2 class="ofertas-title">Ofertas que valen la pena</h2>
@@ -396,7 +471,9 @@
   Algunos enlaces son enlaces de afiliado: si compras a través de ellos, podemos recibir una comisión, sin costo adicional para ti.
 </p>
 
-<footer></footer>
+<footer>
+  <button type="button" class="admin-trigger" id="openAdminBtn">🔐 Admin</button>
+</footer>
 
 <a href="#" id="waFloat" class="wa-float" target="_blank" rel="noopener" aria-label="Únete a nuestro grupo de WhatsApp">
   <span class="wa-float-label">Únete a nuestro grupo</span>
@@ -405,79 +482,168 @@
   </svg>
 </a>
 
+<!-- ===== MODAL DEL PANEL DE ADMINISTRACIÓN ===== -->
+<div class="admin-modal" id="adminModal">
+  <div class="admin-box">
+    <div class="admin-header">
+      <h2 class="admin-title">⚙️ Panel El Tío Cupones</h2>
+      <button type="button" class="admin-close" id="closeAdminBtn">Cerrar ✕</button>
+    </div>
+
+    <!-- Vista cuando no ha iniciado sesión -->
+    <div id="adminLoginView" style="text-align:center; padding:24px 10px;">
+      <p style="font-weight:700; color:var(--navy-deep); margin-bottom:16px;">
+        Acceso exclusivo blindado con Google para <b>dain.glez@hotmail.com</b>
+      </p>
+      <button type="button" class="btn-primary" id="googleLoginBtn">🔑 Iniciar sesión con Google</button>
+    </div>
+
+    <!-- Vista autenticada -->
+    <div id="adminPanelView" style="display:none;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:14px;">
+        <div class="admin-tabs" style="margin-bottom:0;">
+          <button type="button" class="admin-tab active" id="tabCuponesBtn">🎟️ Cupones</button>
+          <button type="button" class="admin-tab" id="tabOfertasBtn">🛍️ Ofertas de Productos</button>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button type="button" class="btn-secondary" id="importSheetBtn">📥 Importar mis datos actuales de Google Sheets</button>
+          <button type="button" class="btn-sm danger" id="logoutBtn">Salir</button>
+        </div>
+      </div>
+
+      <!-- SECCIÓN ADMIN: CUPONES -->
+      <div id="adminCuponesSec">
+        <form class="admin-form" id="cuponForm">
+          <input type="hidden" id="c_id">
+          <div class="admin-field">
+            <label>Categoría / Tienda</label>
+            <input type="text" id="c_tienda" placeholder="Ej. Mercado Libre o Bancarios" value="Mercado Libre" required>
+          </div>
+          <div class="admin-field">
+            <label>Descuento (Título grande)</label>
+            <input type="text" id="c_descuento" placeholder="Ej. $500 OFF o 10% OFF" required>
+          </div>
+          <div class="admin-field">
+            <label>Descripción / Compra mínima</label>
+            <input type="text" id="c_descripcion" placeholder="Ej. Compra mínima $3,000">
+          </div>
+          <div class="admin-field">
+            <label>Código del Cupón</label>
+            <input type="text" id="c_codigo" placeholder="Ej. BUENFINML (o vacío si es oferta)">
+          </div>
+          <div class="admin-field full">
+            <label>Tu Link de Afiliado de Mercado Libre (Obligatorio)</label>
+            <input type="url" id="c_link" placeholder="https://mercadolibre.com/sec/..." required>
+            <div class="link-status" id="c_link_status">Pega tu link de afiliado para verificarlo...</div>
+          </div>
+          <div class="admin-field">
+            <label>Color de Tarjeta (Opcional)</label>
+            <select id="c_color">
+              <option value="">Crema (Clásico)</option>
+              <option value="verde">Verde</option>
+              <option value="amarillo">Amarillo ML</option>
+              <option value="rojo">Rojo</option>
+              <option value="azul">Azul</option>
+              <option value="morado">Morado</option>
+              <option value="naranja">Naranja</option>
+              <option value="dorado">Dorado</option>
+              <option value="negro">Negro</option>
+            </select>
+          </div>
+          <div class="admin-field">
+            <label>Vencimiento (Opcional)</label>
+            <input type="text" id="c_vence" placeholder="AAAA-MM-DD HH:MM">
+          </div>
+          <div class="admin-field">
+            <label>Orden (1 sale primero)</label>
+            <input type="number" id="c_orden" value="10">
+          </div>
+          <div class="admin-actions">
+            <button type="submit" class="btn-primary" id="c_save_btn">💾 Guardar Cupón al Instante</button>
+            <button type="button" class="btn-sm" id="c_cancel_btn" style="display:none;">Cancelar edición</button>
+          </div>
+        </form>
+        <div class="admin-list" id="adminCuponesList"></div>
+      </div>
+
+      <!-- SECCIÓN ADMIN: OFERTAS -->
+      <div id="adminOfertasSec" style="display:none;">
+        <form class="admin-form" id="ofertaForm">
+          <input type="hidden" id="o_id">
+          <div class="admin-field">
+            <label>Título del Producto</label>
+            <input type="text" id="o_titulo" placeholder="Ej. Tenis Puma Smash V2" required>
+          </div>
+          <div class="admin-field">
+            <label>Precio Oferta ($)</label>
+            <input type="number" step="0.01" id="o_precio" placeholder="Ej. 649" required>
+          </div>
+          <div class="admin-field">
+            <label>Precio Antes ($) (Opcional)</label>
+            <input type="number" step="0.01" id="o_antes" placeholder="Ej. 1199">
+          </div>
+          <div class="admin-field">
+            <label>Vendedor (Opcional)</label>
+            <input type="text" id="o_vendedor" placeholder="Ej. Tienda Oficial Puma">
+          </div>
+          <div class="admin-field full">
+            <label>URL de Imagen (link de ML o fotos/archivo.webp)</label>
+            <input type="text" id="o_imagen" placeholder="https://http2.mlstatic.com/..." required>
+          </div>
+          <div class="admin-field full">
+            <label>Tu Link de Afiliado del Producto</label>
+            <input type="url" id="o_link" placeholder="https://mercadolibre.com/sec/..." required>
+          </div>
+          <div class="admin-field">
+            <label>Descripción corta (Opcional)</label>
+            <input type="text" id="o_descripcion" placeholder="Envío Full gratis">
+          </div>
+          <div class="admin-field">
+            <label>Instrucciones al reverso (Opcional)</label>
+            <input type="text" id="o_instrucciones" placeholder="Aplica el cupón bancario al pagar">
+          </div>
+          <div class="admin-actions">
+            <button type="submit" class="btn-primary">💾 Guardar Producto</button>
+            <button type="button" class="btn-sm" id="o_cancel_btn" style="display:none;">Cancelar edición</button>
+          </div>
+        </form>
+        <div class="admin-list" id="adminOfertasList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast">Código copiado ✓</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-<script>
-/* =========================================================
-   CONFIGURACIÓN — esto es lo único que necesitas cambiar UNA VEZ
-   =========================================================
-   1. Crea una Google Sheet con estas columnas exactas en la fila 1:
-      tienda | descuento | descripcion | codigo | link | activo | vence | color
-      - "vence" es OPCIONAL. Si la llenas, con fecha y hora en formato
-        "AAAA-MM-DD HH:MM" (ej. 2026-08-15 23:59), el cupón mostrará un
-        contador regresivo y al llegar esa fecha se marcará "AGOTADO"
-        en rojo (pero seguirá siendo cliqueable, tal como pediste).
-        Si la dejas vacía, el cupón se muestra como vigente siempre.
-      - "color" es OPCIONAL. Ahí decides el color de fondo de ESE cupón,
-        para diferenciar tipos (ej. amarillo para Mercado Libre, rojo para
-        bancarios, verde para otro tipo, etc.). Puedes escribir el nombre
-        en español: amarillo, rojo, verde, azul, celeste, morado, rosa,
-        naranja, gris, negro, blanco, cafe, turquesa, dorado; o pegar un
-        código hexadecimal (ej. #FFD100). Si la dejas vacía, el cupón se
-        ve con su color crema normal. El texto cambia solo a blanco
-        cuando el fondo es oscuro, para que siempre se pueda leer bien.
-   2. Archivo > Compartir > Publicar en la web > selecciona la hoja
-      y el formato "Valores separados por comas (.csv)" > Publicar
-   3. Pega esa URL aquí abajo en SHEET_CSV_URL
-   4. Cada día solo editas la hoja (agregas, borras o cambias filas)
-      y la página se actualiza sola, sin tocar nada de este archivo.
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getFirestore, collection, doc, onSnapshot, setDoc, addDoc, updateDoc, deleteDoc, increment } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-   =========================================================
-   MUY IMPORTANTE PARA QUE SÍ TE GENERE COMISIÓN EN MERCADO LIBRE
-   =========================================================
-   Según el Programa de Afiliados de Mercado Libre, la comisión se
-   genera por el ENLACE de afiliado (con tu ID de rastreo), no por un
-   "código de cupón" inventado. Por eso:
-   - En la columna "link" de cada fila SIEMPRE debes pegar el enlace
-     que tú generas dentro de tu cuenta de afiliado (Generador de
-     links / Central de Afiliados y Creadores), completo, sin editarlo
-     ni acortarlo con otro servicio. Ese enlace ya trae tu identificador.
-   - En la columna "codigo" solo pon un código si es un cupón/promoción
-     REAL y vigente publicado por Mercado Libre (por ejemplo, un cupón
-     bancario o un vale de la propia plataforma). No inventes códigos
-     de descuento que no existan: Mercado Libre prohíbe expresamente
-     "proporcionar información falsa, incompleta o desactualizada" y
-     puede suspender la cuenta de afiliado. Si no tienes un código real
-     para ese producto, deja "codigo" vacío: el botón dirá "Ver oferta"
-     en lugar de simular un cupón.
-   - No compres a través de tus propios enlaces, no uses Google Ads,
-     Google Shopping, Bing Ads ni pop-ups/anuncios pagados dirigiendo
-     tráfico a Mercado Libre: son motivos explícitos de suspensión.
-   - Recuerda declarar esta página (una vez publicada en GitHub Pages)
-     como uno de tus canales dentro de tu perfil de afiliado.
-   - Ya se agregó abajo, en el HTML, el aviso de transparencia
-     ("sitio independiente, no afiliado ni operado por Mercado Libre,
-     enlaces con comisión") que es buena práctica de divulgación.
-========================================================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyCikdrkep__NflYuxg-eA3RkxEubohV5FU",
+  authDomain: "el-tio-cupones.firebaseapp.com",
+  projectId: "el-tio-cupones",
+  storageBucket: "el-tio-cupones.firebasestorage.app",
+  messagingSenderId: "941147559112",
+  appId: "1:941147559112:web:53771ba7eb0e0b5e4001fd",
+  measurementId: "G-2DJF9WHVES"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const ADMIN_EMAIL = "dain.glez@hotmail.com";
+
+// Tus URLs originales de Google Sheets como respaldo automático y para importar con 1 clic
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ78FaPhtRhWjNC8uHzkLziSqURlcezoNRJIRfV9yQRLAyCe6U14OGo5qDQl0pm6fCAPyAFX0a3ywY1/pub?gid=0&single=true&output=csv";
-
-// Pega aquí el link de invitación a tu GRUPO de WhatsApp (distinto del
-// canal). Es a donde llevará el botón flotante. También puedes dejarlo
-// vacío y controlarlo desde tu hoja "Redes" con la clave "grupo_whatsapp".
+const SOCIAL_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ78FaPhtRhWjNC8uHzkLziSqURlcezoNRJIRfV9yQRLAyCe6U14OGo5qDQl0pm6fCAPyAFX0a3ywY1/pub?gid=1718758494&single=true&output=csv";
+const OFERTAS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ78FaPhtRhWjNC8uHzkLziSqURlcezoNRJIRfV9yQRLAyCe6U14OGo5qDQl0pm6fCAPyAFX0a3ywY1/pub?gid=527305852&single=true&output=csv";
 const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/TU-LINK-DE-GRUPO";
 
-// Contador de usos por cupón — no requiere configuración, ya está listo.
-// Usa CountAPI (countapi.mileshilliard.com), un servicio externo gratuito y
-// sin registro para llevar conteos simples. Si algún día deja de responder,
-// el "try/catch" de abajo lo absorbe en silencio: la página y los cupones
-// siguen funcionando normal, solo dejaría de sumar hasta que vuelva.
 const COUNTER_BASE = "https://countapi.mileshilliard.com/api/v1";
-const COUNTER_NAMESPACE = "eltiocupones_com"; // cambia esto solo si cambias de dominio
-
-// Cuando publiques tu pestaña "Redes" como CSV, pega esa URL aquí.
-// Mientras esté vacío, usará los links fijos de abajo como respaldo.
-const SOCIAL_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ78FaPhtRhWjNC8uHzkLziSqURlcezoNRJIRfV9yQRLAyCe6U14OGo5qDQl0pm6fCAPyAFX0a3ywY1/pub?gid=1718758494&single=true&output=csv";
+const COUNTER_NAMESPACE = "eltiocupones_com";
 
 const socialFallback = {
   facebook: "https://www.facebook.com/tu-pagina",
@@ -487,31 +653,18 @@ const socialFallback = {
   youtube: "https://www.youtube.com/@tu-canal",
   tiktok: "https://www.tiktok.com/@tu-usuario"
 };
-
-const socialIds = {
-  facebook: "fbPageLink",
-  grupo: "fbGroupLink",
-  whatsapp: "waChannelLink",
-  instagram: "igLink",
-  youtube: "ytLink",
-  tiktok: "ttLink"
-};
-
-// Claves opcionales que no tienen "chip" fijo en el HTML pero sí un
-// elemento al que hay que ponerle el href (el botón flotante del grupo).
-const extraLinkIds = {
-  grupo_whatsapp: "waFloat"
-};
+const socialIds = { facebook: "fbPageLink", grupo: "fbGroupLink", whatsapp: "waChannelLink", instagram: "igLink", youtube: "ytLink", tiktok: "ttLink" };
+const extraLinkIds = { grupo_whatsapp: "waFloat" };
 
 let allCoupons = [];
+let rawFirestoreCoupons = [];
+let rawFirestoreOfertas = [];
 let activeStore = "Todos";
 let firstLoad = true;
-const COUPONS_CACHE_KEY = 'eltiocupones_coupons_cache_v1';
+let usingFirestoreCoupons = false;
+let usageCounts = {};
+const COUPONS_CACHE_KEY = 'eltiocupones_coupons_cache_v2';
 
-// Si alguien pega un link en el Sheet sin "https://" (ej. "youtube.com/@canal"),
-// el navegador lo trata como una ruta interna del sitio y termina regresando a la misma página.
-// También limpia espacios invisibles que a veces se cuelan al copiar/pegar desde Sheets.
-// Esta función corrige eso automáticamente.
 function ensureUrl(url){
   if(!url) return "";
   const clean = url.toString().replace(/[\u200B-\u200D\uFEFF\u00A0]/g, "").trim();
@@ -520,17 +673,12 @@ function ensureUrl(url){
   return "https://" + clean;
 }
 
-// Descarga el CSV con timeout y reintentos automáticos (si tu wifi falla un
-// instante o Google tarda, lo intenta de nuevo solo, en vez de dejar la
-// página en blanco a la primera).
 async function fetchCsvText(url, { timeoutMs = 8000, retries = 2 } = {}){
   for(let attempt = 0; attempt <= retries; attempt++){
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
     try{
-      const res = await fetch(url + (url.includes('?') ? '&' : '?') + "t=" + Date.now(), {
-        signal: controller.signal, cache: "no-store"
-      });
+      const res = await fetch(url + (url.includes('?') ? '&' : '?') + "t=" + Date.now(), { signal: controller.signal, cache: "no-store" });
       clearTimeout(timer);
       if(!res.ok) throw new Error("HTTP " + res.status);
       return await res.text();
@@ -540,6 +688,15 @@ async function fetchCsvText(url, { timeoutMs = 8000, retries = 2 } = {}){
       await new Promise(r => setTimeout(r, 600 * (attempt + 1)));
     }
   }
+}
+
+function normalizeRow(row){
+  const out = {};
+  Object.keys(row).forEach(k => {
+    const nk = k.toString().trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    out[nk] = row[k];
+  });
+  return out;
 }
 
 function applySocialLinks(map){
@@ -554,52 +711,28 @@ function applySocialLinks(map){
 }
 
 function loadSocialLinks(){
-  if(!SOCIAL_CSV_URL){
-    applySocialLinks(socialFallback);
-    return;
-  }
-  fetchCsvText(SOCIAL_CSV_URL)
-    .then(text => {
-      const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
-      const map = {};
-      parsed.data.forEach(row => {
-        const r = normalizeRow(row);
-        const key = (r.red || "").toString().trim().toLowerCase();
-        if(key) map[key] = r.link;
-      });
-      applySocialLinks(Object.assign({}, socialFallback, map));
-    })
-    .catch(() => applySocialLinks(socialFallback));
+  if(!SOCIAL_CSV_URL) return applySocialLinks(socialFallback);
+  fetchCsvText(SOCIAL_CSV_URL).then(text => {
+    const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+    const map = {};
+    parsed.data.forEach(row => {
+      const r = normalizeRow(row);
+      const key = (r.red || "").toString().trim().toLowerCase();
+      if(key) map[key] = r.link;
+    });
+    applySocialLinks(Object.assign({}, socialFallback, map));
+  }).catch(() => applySocialLinks(socialFallback));
 }
-
 loadSocialLinks();
-setInterval(loadSocialLinks, 5 * 60 * 1000);
 
 function showToast(msg){
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(()=> t.classList.remove('show'), 1800);
+  setTimeout(()=> t.classList.remove('show'), 1900);
 }
 
-// ARREGLO DEL BUG DE COPIADO EN IPHONE/SAFARI: copia el código al
-// portapapeles de forma SÍNCRONA con document.execCommand('copy'), en vez
-// de depender solo de navigator.clipboard.writeText() (que es asíncrono).
-//
-// Por qué a veces fallaba y a veces no:
-// El cupón sigue siendo un <a target="_blank"> real con tu link de afiliado
-// tal cual (eso NO se toca, para no arriesgar tus comisiones). En cuanto
-// termina el clic, el navegador empieza a abrir Mercado Libre en una
-// pestaña nueva. navigator.clipboard.writeText() es una Promesa: en PC
-// casi siempre alcanza a resolverse antes de que la página cambie de foco,
-// pero en Safari de iPhone ese cambio de foco hacia la pestaña nueva puede
-// cancelar la Promesa a medias y en silencio (nunca marca error, solo no
-// llega a copiar). Por eso a veces sí funcionaba y a veces no: dependía de
-// qué tan rápido respondía el teléfono en ese instante.
-// execCommand('copy') ocurre en el mismo instante síncrono del clic, ANTES
-// de que el navegador procese la navegación del link, así que siempre
-// alcanza a completarse, sin importar el dispositivo ni qué tan rápido o
-// lento esté el teléfono.
+// COPIADO SÍNCRONO INFALIBLE PARA IPHONE / SAFARI
 function copyToClipboard(text){
   if(!text) return false;
   const textarea = document.createElement('textarea');
@@ -615,13 +748,13 @@ function copyToClipboard(text){
   textarea.style.boxShadow = 'none';
   textarea.style.background = 'transparent';
   textarea.style.opacity = '0';
-  textarea.style.fontSize = '16px'; // evita el zoom automático de iOS al enfocar el campo
+  textarea.style.fontSize = '16px';
   document.body.appendChild(textarea);
   const selection = document.getSelection();
   const originalRange = (selection && selection.rangeCount > 0) ? selection.getRangeAt(0) : null;
   textarea.focus();
   textarea.select();
-  textarea.setSelectionRange(0, textarea.value.length); // requerido específicamente por iOS Safari
+  textarea.setSelectionRange(0, textarea.value.length);
   let success = false;
   try{ success = document.execCommand('copy'); }catch(e){ success = false; }
   document.body.removeChild(textarea);
@@ -629,39 +762,18 @@ function copyToClipboard(text){
     selection.removeAllRanges();
     if(originalRange) selection.addRange(originalRange);
   }
-  // Respaldo silencioso con la API moderna cuando el navegador la soporte.
-  // No retrasa ni bloquea nada: si execCommand ya funcionó, esto es solo
-  // una confirmación extra que corre en paralelo.
   if(navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext){
     navigator.clipboard.writeText(text).catch(()=>{});
   }
   return success;
 }
 
-function normalizeRow(row){
-  const out = {};
-  Object.keys(row).forEach(k => {
-    const nk = k.toString().trim().toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, ""); // quita acentos
-    out[nk] = row[k];
-  });
-  return out;
-}
-
-// Muestra solo las primeras letras del cupón y oculta el resto con asteriscos fijos,
-// para generar curiosidad sin revelar el código real hasta que hacen clic.
 function maskCode(code){
   if(!code) return 'VER OFERTA';
   const visibleCount = Math.min(3, code.length);
-  const visible = code.slice(0, visibleCount);
-  return visible + '****';
+  return code.slice(0, visibleCount) + '****';
 }
 
-// Colores rápidos en español para la columna opcional "color" del Sheet.
-// Así tú (o quien llene la hoja) puede escribir "amarillo", "rojo", "verde", etc.
-// sin necesitar saber códigos hexadecimales. También acepta un código hex
-// directo (ej. #FFD100) o cualquier nombre de color en inglés que entienda
-// el navegador (ej. "gold").
 const COLOR_NAMES = {
   amarillo: '#FFC72C', rojo: '#E53935', verde: '#43A047', azul: '#1E88E5',
   celeste: '#4FC3F7', morado: '#8E24AA', purpura: '#8E24AA', rosa: '#EC407A',
@@ -669,19 +781,12 @@ const COLOR_NAMES = {
   cafe: '#795548', turquesa: '#00ACC1', dorado: '#D4AF37'
 };
 
-// Convierte lo que haya en la columna "color" del Sheet a un color CSS válido.
-// Si está vacío o no se reconoce, regresa null y el cupón usa su color
-// crema de siempre (no se altera nada del cupón en ese caso).
 function resolveCouponColor(value){
   if(!value) return null;
   const raw = value.toString().trim().toLowerCase();
-  if(!raw) return null;
   return COLOR_NAMES[raw] || value.toString().trim();
 }
 
-// Decide si el texto de ese cupón debe verse oscuro (color normal del sitio)
-// o blanco, según qué tan claro/oscuro sea el color de fondo elegido, para
-// que siempre se pueda leer bien sin importar el color que elijas.
 function getReadableTextColor(cssColor){
   try{
     const probe = document.createElement('span');
@@ -694,25 +799,24 @@ function getReadableTextColor(cssColor){
     if(!nums || nums.length < 3) return null;
     const [r, g, b] = nums.map(Number);
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-    return luminance < 0.6 ? '#ffffff' : null; // null = deja el color normal (oscuro) del sitio
-  }catch(e){
-    return null;
-  }
+    return luminance < 0.6 ? '#ffffff' : null;
+  }catch(e){ return null; }
 }
 
 function buildChips(rows){
   const chipRow = document.getElementById('chipRow');
-  const stores = Array.from(new Set(rows.map(r => (r.tienda || 'Mercado Libre').trim()))).sort();
+  const stores = Array.from(new Set(rows.map(r => (r.tienda || 'Mercado Libre').trim())));
   chipRow.innerHTML = "";
   const allChip = document.createElement('button');
-  allChip.className = 'chip active';
-  allChip.textContent = 'Todos';
+  allChip.className = 'chip' + (activeStore === 'Todos' ? ' active' : '');
+  allChip.textContent = `Todos (${rows.length})`;
   allChip.addEventListener('click', () => selectChip('Todos'));
   chipRow.appendChild(allChip);
   stores.forEach(store => {
+    const count = rows.filter(r => (r.tienda || 'Mercado Libre').trim() === store).length;
     const chip = document.createElement('button');
-    chip.className = 'chip';
-    chip.textContent = store;
+    chip.className = 'chip' + (activeStore === store ? ' active' : '');
+    chip.textContent = `${store} (${count})`;
     chip.addEventListener('click', () => selectChip(store));
     chipRow.appendChild(chip);
   });
@@ -720,9 +824,7 @@ function buildChips(rows){
 
 function selectChip(store){
   activeStore = store;
-  document.querySelectorAll('.chip').forEach(c => {
-    c.classList.toggle('active', c.textContent === store);
-  });
+  buildChips(allCoupons);
   applyFilters();
 }
 
@@ -741,37 +843,16 @@ function applyFilters(){
   }
   renderGrid(filtered);
 }
-
 document.getElementById('searchInput').addEventListener('input', applyFilters);
 
-let usageCounts = {};
-
-// Convierte texto libre en una clave segura para la API (solo minúsculas, números y guiones bajos).
 function slug(text){
-  return (text || '')
-    .toString().trim().toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '_')
-    .replace(/^_+|_+$/g, '')
-    .slice(0, 60);
+  return (text || '').toString().trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 60);
 }
-
-// Clave estable por cupón: tienda + código (o descuento si no hay código).
-// Como incluye el código, en cuanto lo cambies en el Sheet se genera una
-// clave nueva y el contador arranca en 0 solo, sin que tengas que hacer nada.
 function couponKey(r){
-  const store = slug(r.tienda || 'mercado_libre');
-  const code = slug(r.codigo || r.descuento || 'oferta');
-  return COUNTER_NAMESPACE + '_' + store + '_' + code;
+  return COUNTER_NAMESPACE + '_' + slug(r.tienda || 'mercado_libre') + '_' + slug(r.codigo || r.descuento || 'oferta');
 }
+function formatUses(n){ return '🔥 ' + n + (n === 1 ? ' uso' : ' usos'); }
 
-function formatUses(n){
-  return '📋 ' + n + (n === 1 ? ' uso' : ' usos');
-}
-
-// Acepta "AAAA-MM-DD HH:MM", "AAAA-MM-DD" o cualquier fecha que entienda
-// el navegador. Si el Sheet viene vacío o con un valor no válido, regresa
-// null y el cupón se muestra como vigente siempre (sin contador).
 function parseVence(value){
   if(!value) return null;
   const raw = value.toString().trim();
@@ -789,18 +870,14 @@ function formatCountdown(msLeft){
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
   const pad = n => n.toString().padStart(2, '0');
-  const text = days > 0
-    ? `Vence en ${days}d ${pad(hours)}h ${pad(minutes)}m`
-    : `Vence en ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+  const text = days > 0 ? `Vence en ${days}d ${pad(hours)}h` : `Vence en ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
   return { text: '⏳ ' + text, expired: false };
 }
 
-// Un solo intervalo global actualiza todos los contadores visibles cada
-// segundo, en lugar de crear un setInterval por tarjeta (más eficiente).
 function tickCountdowns(){
   document.querySelectorAll('.countdown[data-vence]').forEach(el => {
     const target = Number(el.getAttribute('data-vence'));
-    if(!target){ return; }
+    if(!target) return;
     const { text, expired } = formatCountdown(target - Date.now());
     el.textContent = text;
     el.classList.toggle('expired', expired);
@@ -808,38 +885,15 @@ function tickCountdowns(){
 }
 setInterval(tickCountdowns, 1000);
 
-// Lee (sin sumar) el conteo actual de cada cupón visible, en paralelo y sin bloquear nada.
-function fetchUsageCounts(){
-  document.querySelectorAll('.uses[data-key]').forEach(el => {
-    const key = el.getAttribute('data-key');
-    fetch(COUNTER_BASE + '/get/' + key)
-      .then(r => r.json())
-      .then(data => {
-        const n = parseInt(data.value, 10);
-        if(!isNaN(n)){
-          usageCounts[key] = n;
-          el.textContent = formatUses(n);
-        }
-      })
-      .catch(()=>{}); // cupón nuevo (aún sin usos) o servicio caído: se queda en 0, sin errores visibles
-  });
-}
-
-// Suma +1 al hacer clic. Actualiza la pantalla al instante y en segundo plano confirma con el servidor.
-function registerUsage(key, el){
+function registerUsage(r, key, el){
   const optimistic = (usageCounts[key] || 0) + 1;
   usageCounts[key] = optimistic;
   if(el) el.textContent = formatUses(optimistic);
-  fetch(COUNTER_BASE + '/hit/' + key)
-    .then(r => r.json())
-    .then(data => {
-      const n = parseInt(data.value, 10);
-      if(!isNaN(n) && el){
-        usageCounts[key] = n;
-        el.textContent = formatUses(n);
-      }
-    })
-    .catch(()=>{});
+  // Si el cupón está en Firebase, también suma +1 a los likes automáticamente al usarlo
+  if(r._id){
+    updateDoc(doc(db, "cupones", r._id), { likes: increment(1) }).catch(()=>{});
+  }
+  fetch(COUNTER_BASE + '/hit/' + key).catch(()=>{});
 }
 
 function renderGrid(activos){
@@ -850,7 +904,7 @@ function renderGrid(activos){
   if(activos.length === 0){
     status.style.display = "none";
     grid.innerHTML = `<div class="no-results" style="grid-column:1/-1;">
-        No encontramos cupones con esa búsqueda.<br>
+        No encontramos cupones con ese filtro.<br>
         <button id="clearFiltersBtn">Ver todos los cupones</button>
       </div>`;
     document.getElementById('clearFiltersBtn').addEventListener('click', () => {
@@ -862,27 +916,29 @@ function renderGrid(activos){
 
   activos.forEach((r, i) => {
     const link = ensureUrl(r.link) || '#';
-    // Si una fila no tiene link válido, se omite: un cupón sin destino no
-    // debería mostrarse (y menos "generar clic" hacia ninguna parte).
     if(!link || link === '#') return;
 
     const btn = document.createElement('a');
     btn.className = 'coupon';
     btn.href = link;
     btn.target = '_blank';
-    // rel="sponsored" es la etiqueta que Google recomienda para enlaces de
-    // afiliado/patrocinados (además de "noopener" por seguridad).
     btn.rel = 'noopener sponsored';
-    btn.style.setProperty('--r', (i % 2 === 0 ? '-0.6deg' : '0.6deg'));
+    btn.style.setProperty('--r', (i % 2 === 0 ? '-0.5deg' : '0.5deg'));
     const storeName = r.tienda || 'Mercado Libre';
     const key = couponKey(r);
     const vence = parseVence(r.vence);
-    const ctaText = r.codigo ? 'Copiar y ver →' : 'Ver oferta →';
-    btn.setAttribute('aria-label', 'Ir a la oferta de ' + storeName + ' en Mercado Libre');
+    const ctaText = r.codigo ? 'Copiar y Canjear →' : 'Ver Oferta →';
+    const likes = Number(r.likes || 0);
+    const dislikes = Number(r.dislikes || 0);
+    const voteMemory = localStorage.getItem('vote_' + (r._id || key));
+
     btn.innerHTML = `
       <div class="store-row">
         <span class="store">${storeName}</span>
-        <span class="verified">✓ Verificado hoy</span>
+        <div class="badges-right">
+          ${likes >= 5 ? `<span class="pop-badge">🔥 Popular</span>` : ''}
+          <span class="verified">✓ Verificado hoy</span>
+        </div>
       </div>
       <div class="discount">${r.descuento || 'Oferta especial'}</div>
       <div class="desc">${r.descripcion || ''}</div>
@@ -891,13 +947,19 @@ function renderGrid(activos){
         <span class="code">${maskCode(r.codigo)}</span>
         <span class="cta">${ctaText}</span>
       </div>
-      <div class="code-row">
-        <span class="uses" data-key="${key}">${formatUses(usageCounts[key] || 0)}</span>
-        ${vence ? `<span class="countdown" data-vence="${vence.getTime()}"></span>` : ''}
+      <div class="meta-row">
+        <div class="vote-group">
+          <button type="button" class="vote-btn up-btn ${voteMemory === 'up' ? 'voted-up' : ''}" title="¡Me funcionó!">
+            👍 <span>${likes}</span>
+          </button>
+          <button type="button" class="vote-btn down-btn ${voteMemory === 'down' ? 'voted-down' : ''}" title="Ya se agotó">
+            👎 <span>${dislikes}</span>
+          </button>
+        </div>
+        ${vence ? `<span class="countdown" data-vence="${vence.getTime()}"></span>` : `<span class="uses" data-key="${key}">${formatUses(likes || usageCounts[key] || 0)}</span>`}
       </div>
     `;
-    // Color de fondo opcional (columna "color" en el Sheet). Si la celda
-    // está vacía, el cupón se ve exactamente igual que siempre (crema).
+
     const couponColor = resolveCouponColor(r.color);
     if(couponColor){
       btn.style.backgroundColor = couponColor;
@@ -909,28 +971,42 @@ function renderGrid(activos){
         });
       }
     }
+
+    // Botones de voto 👍 / 👎 (detienen la navegación para solo votar sin abrir el link)
+    const upBtn = btn.querySelector('.up-btn');
+    const downBtn = btn.querySelector('.down-btn');
+    upBtn.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      if(localStorage.getItem('vote_' + (r._id || key))) return showToast('¡Gracias! Ya registraste tu voto 👍');
+      localStorage.setItem('vote_' + (r._id || key), 'up');
+      upBtn.classList.add('voted-up');
+      if(r._id) updateDoc(doc(db, "cupones", r._id), { likes: increment(1) }).catch(()=>{});
+      showToast('👍 ¡Gracias por confirmar que funciona!');
+    });
+    downBtn.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      if(localStorage.getItem('vote_' + (r._id || key))) return showToast('¡Gracias! Ya registraste tu voto');
+      localStorage.setItem('vote_' + (r._id || key), 'down');
+      downBtn.classList.add('voted-down');
+      if(r._id) updateDoc(doc(db, "cupones", r._id), { dislikes: increment(1) }).catch(()=>{});
+      showToast('👎 Gracias por avisar, lo revisaremos');
+    });
+
     const usesEl = btn.querySelector('.uses');
-    if(vence){
-      tickCountdowns(); // pinta el estado inicial de inmediato, sin esperar 1s
-    }
-    // El cupón SIEMPRE es cliqueable, incluso vencido/"AGOTADO": copia el
-    // código (si existe) y, como es un <a target="_blank"> real, el navegador
-    // abre Mercado Libre en una pestaña nueva sin depender de JS ni de
-    // window.open — funciona igual con clic normal, clic derecho, clic con
-    // la rueda del mouse, o mantener presionado en móvil.
+    if(vence) tickCountdowns();
+
+    // Clic principal en el cupón: copia código síncronamente y abre tu link de afiliado
     btn.addEventListener('click', () => {
       if(r.codigo){
         const copiado = copyToClipboard(r.codigo);
         showToast(copiado ? ('Código ' + r.codigo + ' copiado ✓') : ('Tu código: ' + r.codigo));
       }
-      registerUsage(key, usesEl);
+      registerUsage(r, key, usesEl);
     });
     grid.appendChild(btn);
   });
-  if(!grid.children.length){
-    status.style.display = "block";
-    status.innerHTML = "Estos cupones no tienen un link válido configurado. Revisa la columna <b>link</b> en tu Google Sheet.";
-  }
 }
 
 function renderCoupons(rows){
@@ -940,124 +1016,71 @@ function renderCoupons(rows){
 
   if(allCoupons.length === 0){
     grid.innerHTML = "";
-    status.textContent = "No hay cupones activos en este momento. Vuelve más tarde.";
+    status.textContent = "Actualizando cupones del día... Vuelve en unos minutos.";
     status.style.display = "block";
     document.getElementById('chipRow').innerHTML = "";
     return;
   }
   status.style.display = "none";
+  if(firstLoad){ activeStore = "Todos"; firstLoad = false; }
   buildChips(allCoupons);
-  // Solo se resetea el filtro "Todos" la primera vez que carga la página.
-  // Así, si el visitante ya eligió una tienda y la hoja se auto-actualiza
-  // en segundo plano (cada 5 min), no le brincamos el filtro sin avisar.
-  if(firstLoad){
-    activeStore = "Todos";
-    firstLoad = false;
-  }
   applyFilters();
-  fetchUsageCounts();
 }
 
-function showRetryError(msg){
-  const status = document.getElementById('status');
-  status.innerHTML = msg + ' <button id="retryLoadBtn" style="margin-left:8px;background:var(--navy);color:var(--white);border:none;padding:8px 18px;border-radius:999px;font-weight:800;cursor:pointer;font-family:inherit;">Reintentar</button>';
-  status.style.display = "block";
-  document.getElementById('retryLoadBtn').addEventListener('click', loadCoupons);
-}
+// 1. Carga instantánea desde memoria local (0.01 segundos)
+try{
+  const cached = JSON.parse(localStorage.getItem(COUPONS_CACHE_KEY) || 'null');
+  if(cached && Array.isArray(cached.rows) && cached.rows.length) renderCoupons(cached.rows);
+}catch(e){}
 
-function loadCoupons(){
-  const status = document.getElementById('status');
-  if(!SHEET_CSV_URL || SHEET_CSV_URL.includes("PEGA_AQUI")){
-    document.getElementById('grid').innerHTML = "";
-    status.innerHTML = "Configura tu <b>SHEET_CSV_URL</b> dentro del código para conectar tu Google Sheet.";
-    status.style.display = "block";
-    return;
+// 2. Conexión en tiempo real a tu Firestore (el-tio-cupones)
+onSnapshot(collection(db, "cupones"), (snap) => {
+  const docs = [];
+  snap.forEach(d => docs.push({ _id: d.id, ...d.data() }));
+  docs.sort((a, b) => (Number(a.orden) || 99) - (Number(b.orden) || 99));
+  rawFirestoreCoupons = docs;
+  renderAdminCouponsList();
+
+  if(docs.length > 0){
+    usingFirestoreCoupons = true;
+    renderCoupons(docs);
+    try{ localStorage.setItem(COUPONS_CACHE_KEY, JSON.stringify({ rows: docs, ts: Date.now() })); }catch(e){}
+    document.getElementById('lastUpdated').textContent = "⚡ Actualizado hoy en vivo · " + new Date().toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'});
+  } else if(!usingFirestoreCoupons) {
+    // Si aún no has importado tus cupones a Firebase, lee tu Google Sheet automáticamente
+    loadFallbackSheetCoupons();
   }
-  // Mientras llega la respuesta fresca, si hay una versión guardada de la
-  // última vez que sí cargó bien, se muestra de inmediato (nunca pantalla
-  // en blanco) y luego se reemplaza sola cuando el Sheet responde.
-  if(allCoupons.length === 0){
-    try{
-      const cached = JSON.parse(localStorage.getItem(COUPONS_CACHE_KEY) || 'null');
-      if(cached && Array.isArray(cached.rows) && cached.rows.length) renderCoupons(cached.rows);
-    }catch(e){}
-  }
-  fetchCsvText(SHEET_CSV_URL)
-    .then(text => {
-      const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
-      const rows = parsed.data.map(normalizeRow);
-      renderCoupons(rows);
-      try{ localStorage.setItem(COUPONS_CACHE_KEY, JSON.stringify({ rows, ts: Date.now() })); }catch(e){}
-      document.getElementById('lastUpdated').textContent =
-        "Última revisión: " + new Date().toLocaleString('es-MX', {dateStyle:'medium', timeStyle:'short'});
-    })
-    .catch(() => {
-      if(allCoupons.length === 0){
-        document.getElementById('grid').innerHTML = "";
-        showRetryError("No se pudo cargar la hoja de cupones. Revisa tu conexión o que esté publicada como CSV.");
-      }
-    });
+}, () => {
+  loadFallbackSheetCoupons();
+});
+
+function loadFallbackSheetCoupons(){
+  fetchCsvText(SHEET_CSV_URL).then(text => {
+    if(usingFirestoreCoupons) return;
+    const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+    const rows = parsed.data.map(normalizeRow);
+    renderCoupons(rows);
+    try{ localStorage.setItem(COUPONS_CACHE_KEY, JSON.stringify({ rows, ts: Date.now() })); }catch(e){}
+  }).catch(()=>{});
 }
 
-loadCoupons();
-setInterval(loadCoupons, 5 * 60 * 1000);
-
-/* =========================================================
-   OFERTAS — bloque independiente (no modifica nada de los cupones)
-   Pestaña "Ofertas" del mismo Google Sheet, con estos encabezados:
-   titulo | imagen | precio | precio_antes | descripcion | link | activo | vendedor
-
-   - "imagen": puede ser un link completo (https://...) de Mercado Libre,
-     o el nombre de un archivo que subas a la carpeta "fotos" de tu GitHub
-     (ej. fotos/pokemon.webp).
-   - "link": tu enlace de afiliado completo. Va directo en el href, sin
-     que JavaScript lo toque, igual que en los cupones.
-   ========================================================= */
-// Pega aquí la URL CSV publicada de tu pestaña "Ofertas"
-const OFERTAS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ78FaPhtRhWjNC8uHzkLziSqURlcezoNRJIRfV9yQRLAyCe6U14OGo5qDQl0pm6fCAPyAFX0a3ywY1/pub?gid=527305852&single=true&output=csv";
-const OFERTAS_CACHE_KEY = 'eltiocupones_ofertas_cache_v1';
-
-function ofEsc(s){
-  return String(s == null ? '' : s).replace(/[&<>"']/g, c =>
-    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-function ofPrice(v){
-  const n = parseFloat((v || '').toString().replace(/[^0-9.]/g, ''));
-  return isNaN(n) ? null : n;
-}
-function ofFmt(n){
-  return '$' + n.toLocaleString('es-MX', { minimumFractionDigits: (n % 1 ? 2 : 0), maximumFractionDigits: 2 });
-}
-// Imagen: acepta link completo (http/https/ //) o ruta relativa a tu sitio
-// (ej. "fotos/producto.webp"). No usa ensureUrl a propósito, porque ese
-// convertiría "fotos/x.webp" en "https://fotos/x.webp" y se rompería.
+/* ===== SECCIÓN OFERTAS (FIRESTORE + RESPALDO GOOGLE SHEETS) ===== */
+function ofEsc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&','<':'<','>':'>','"':'"',"'":'''}[c])); }
+function ofPrice(v){ const n = parseFloat((v || '').toString().replace(/[^0-9.]/g, '')); return isNaN(n) ? null : n; }
+function ofFmt(n){ return '$' + n.toLocaleString('es-MX', { minimumFractionDigits: (n % 1 ? 2 : 0), maximumFractionDigits: 2 }); }
 function ofImg(u){
   if(!u) return '';
   const c = u.toString().replace(/[\u200B-\u200D\uFEFF\u00A0]/g, '').trim();
-  if(!c) return '';
   if(/^https?:\/\//i.test(c) || c.startsWith('//')) return c;
-  if(/^[a-z][a-z0-9+.-]*:/i.test(c)) return ''; // bloquea javascript:, data:, etc.
+  if(/^[a-z][a-z0-9+.-]*:/i.test(c)) return '';
   return c.replace(/^\/+/, '');
 }
-
-// Contador de clics por oferta (mismo servicio que los cupones). Cuenta clics
-// en tu página, NO compras: las compras solo las ve Mercado Libre en tu Central.
 function ofKey(r){ return COUNTER_NAMESPACE + '_oferta_' + slug(r.titulo || 'oferta'); }
 function ofFmtClicks(n){ return '👆 ' + n + (n === 1 ? ' clic' : ' clics'); }
-function ofFetchCounts(){
-  document.querySelectorAll('.oferta-uses[data-key]').forEach(el => {
-    const key = el.getAttribute('data-key');
-    fetch(COUNTER_BASE + '/get/' + key).then(r => r.json()).then(d => {
-      const n = parseInt(d.value, 10);
-      if(!isNaN(n)){ usageCounts[key] = n; el.textContent = ofFmtClicks(n); }
-    }).catch(()=>{});
-  });
-}
 
 function renderOfertas(rows){
   const section = document.getElementById('ofertasSection');
   const grid = document.getElementById('ofertasGrid');
-  // Si alguien está leyendo las instrucciones, no se redibuja (no se le voltea la tarjeta).
   if(grid.querySelector('.oferta-wrap.flipped')) return;
   const items = rows.filter(r =>
     (r.activo || '').toString().trim().toLowerCase() !== 'no' &&
@@ -1068,21 +1091,19 @@ function renderOfertas(rows){
 
   grid.innerHTML = items.map((r, i) => {
     const precio = ofPrice(r.precio);
-    const antes = ofPrice(r.precio_antes || r['precio antes'] || r.precio_anterior || r['precio anterior'] || r.precio_original);
+    const antes = ofPrice(r.precio_antes || r['precio antes']);
     const tieneDescuento = antes !== null && antes > precio;
     const pct = tieneDescuento ? Math.round((1 - precio / antes) * 100) : 0;
     const img = ofImg(r.imagen);
-    const loading = i < 4 ? 'eager' : 'lazy';
     const key = ofKey(r);
     const instr = (r.instrucciones || '').toString().trim();
     return `
       <div class="oferta-wrap"><div class="oferta-flip">
         <div class="oferta-face oferta-front">
-          <a class="oferta" href="${ofEsc(ensureUrl(r.link))}" target="_blank" rel="noopener sponsored"
-             aria-label="Ver oferta: ${ofEsc(r.titulo)}">
+          <a class="oferta" href="${ofEsc(ensureUrl(r.link))}" target="_blank" rel="noopener sponsored">
             <div class="oferta-img">
               ${pct >= 1 ? `<span class="oferta-badge">${pct}% OFF</span>` : ''}
-              ${img ? `<img src="${ofEsc(img)}" alt="${ofEsc(r.titulo)}" loading="${loading}" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none'">` : ''}
+              ${img ? `<img src="${ofEsc(img)}" alt="${ofEsc(r.titulo)}" loading="${i < 4 ? 'eager' : 'lazy'}" referrerpolicy="no-referrer" onerror="this.style.display='none'">` : ''}
             </div>
             <div class="oferta-body">
               <div class="oferta-name">${ofEsc(r.titulo)}</div>
@@ -1097,56 +1118,334 @@ function renderOfertas(rows){
           ${instr ? `<button type="button" class="oferta-info-btn">ⓘ Instrucciones</button>` : ''}
         </div>
         ${instr ? `<div class="oferta-face oferta-back">
-          <div class="oferta-back-top"><button type="button" class="oferta-back-btn" aria-label="Volver">←</button><span class="oferta-back-title">Instrucciones</span></div>
+          <div class="oferta-back-top"><button type="button" class="oferta-back-btn">←</button><span class="oferta-back-title">Instrucciones</span></div>
           <div class="oferta-back-text">${ofEsc(instr)}</div>
         </div>` : ''}
       </div></div>`;
   }).join('');
   section.hidden = false;
-  ofFetchCounts();
 }
 
-// Un solo "escucha" para toda la sección: voltear tarjeta, volver y contar clics.
-// No usa preventDefault: el link de afiliado se abre exactamente igual que siempre.
 document.getElementById('ofertasGrid').addEventListener('click', e => {
   const info = e.target.closest('.oferta-info-btn');
   if(info){ info.closest('.oferta-wrap').classList.add('flipped'); return; }
   const back = e.target.closest('.oferta-back-btn');
   if(back){ back.closest('.oferta-wrap').classList.remove('flipped'); return; }
-  const a = e.target.closest('a.oferta');
-  if(!a) return;
-  const el = a.querySelector('.oferta-uses');
-  if(!el) return;
-  const key = el.getAttribute('data-key');
-  usageCounts[key] = (usageCounts[key] || 0) + 1;
-  el.textContent = ofFmtClicks(usageCounts[key]);
-  fetch(COUNTER_BASE + '/hit/' + key).then(r => r.json()).then(d => {
-    const n = parseInt(d.value, 10);
-    if(!isNaN(n)){ usageCounts[key] = n; el.textContent = ofFmtClicks(n); }
-  }).catch(()=>{});
 });
 
-function loadOfertas(){
-  if(!OFERTAS_CSV_URL || OFERTAS_CSV_URL.includes('PEGA_AQUI')) return;
-  // Igual que los cupones: si hay una versión guardada de la última visita,
-  // se muestra al instante y luego se reemplaza con la fresca del Sheet.
-  if(document.getElementById('ofertasGrid').children.length === 0){
-    try{
-      const cached = JSON.parse(localStorage.getItem(OFERTAS_CACHE_KEY) || 'null');
-      if(cached && Array.isArray(cached.rows) && cached.rows.length) renderOfertas(cached.rows);
-    }catch(e){}
+onSnapshot(collection(db, "ofertas"), (snap) => {
+  const docs = [];
+  snap.forEach(d => docs.push({ _id: d.id, ...d.data() }));
+  rawFirestoreOfertas = docs;
+  renderAdminOfertasList();
+  if(docs.length > 0){
+    renderOfertas(docs);
+  } else {
+    fetchCsvText(OFERTAS_CSV_URL).then(t => {
+      const parsed = Papa.parse(t, { header: true, skipEmptyLines: true });
+      renderOfertas(parsed.data.map(normalizeRow));
+    }).catch(()=>{});
   }
-  fetchCsvText(OFERTAS_CSV_URL)
-    .then(text => {
-      const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
-      const rows = parsed.data.map(normalizeRow);
-      renderOfertas(rows);
-      try{ localStorage.setItem(OFERTAS_CACHE_KEY, JSON.stringify({ rows, ts: Date.now() })); }catch(e){}
-    })
-    .catch(() => {}); // si falla, la sección simplemente no aparece (o queda la versión guardada)
+});
+
+/* =========================================================
+   LÓGICA DEL PANEL DE ADMINISTRACIÓN BLINDADO
+   ========================================================= */
+const adminModal = document.getElementById('adminModal');
+const openAdminBtn = document.getElementById('openAdminBtn');
+const closeAdminBtn = document.getElementById('closeAdminBtn');
+
+function checkHashAdmin(){
+  if(window.location.hash === '#admin') adminModal.classList.add('open');
 }
-loadOfertas();
-setInterval(loadOfertas, 5 * 60 * 1000);
+window.addEventListener('hashchange', checkHashAdmin);
+checkHashAdmin();
+
+openAdminBtn.addEventListener('click', () => adminModal.classList.add('open'));
+closeAdminBtn.addEventListener('click', () => {
+  adminModal.classList.remove('open');
+  if(window.location.hash === '#admin') history.replaceState(null, null, ' ');
+});
+
+document.getElementById('googleLoginBtn').addEventListener('click', async () => {
+  const provider = new GoogleAuthProvider();
+  try{
+    await signInWithPopup(auth, provider);
+  }catch(err){
+    alert("Error al iniciar sesión: " + err.message);
+  }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+
+onAuthStateChanged(auth, (user) => {
+  const loginView = document.getElementById('adminLoginView');
+  const panelView = document.getElementById('adminPanelView');
+  if(user && user.email && user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()){
+    loginView.style.display = 'none';
+    panelView.style.display = 'block';
+  } else {
+    loginView.style.display = 'block';
+    panelView.style.display = 'none';
+    if(user){
+      alert("La cuenta " + user.email + " no tiene permiso de administrador. Inicia con " + ADMIN_EMAIL);
+      signOut(auth);
+    }
+  }
+});
+
+// Pestañas del Admin
+document.getElementById('tabCuponesBtn').addEventListener('click', () => {
+  document.getElementById('tabCuponesBtn').classList.add('active');
+  document.getElementById('tabOfertasBtn').classList.remove('active');
+  document.getElementById('adminCuponesSec').style.display = 'block';
+  document.getElementById('adminOfertasSec').style.display = 'none';
+});
+document.getElementById('tabOfertasBtn').addEventListener('click', () => {
+  document.getElementById('tabOfertasBtn').classList.add('active');
+  document.getElementById('tabCuponesBtn').classList.remove('active');
+  document.getElementById('adminOfertasSec').style.display = 'block';
+  document.getElementById('adminCuponesSec').style.display = 'none';
+});
+
+// Verificador en tiempo real de tu link de afiliado (Candado de comisión)
+const linkInput = document.getElementById('c_link');
+const linkStatus = document.getElementById('c_link_status');
+linkInput.addEventListener('input', () => {
+  const val = ensureUrl(linkInput.value);
+  if(!val){
+    linkStatus.textContent = "Pega tu link de afiliado para verificarlo...";
+    linkStatus.className = "link-status";
+  } else if(/mercadolibre\.com|meli\.la/i.test(val)){
+    linkStatus.textContent = "✅ Enlace válido de Mercado Libre (Tu comisión está protegida)";
+    linkStatus.className = "link-status ok";
+  } else {
+    linkStatus.textContent = "⚠️ Atención: Este enlace no parece ser de Mercado Libre, revísalo antes de guardar.";
+    linkStatus.className = "link-status warn";
+  }
+});
+
+// Guardar o Editar Cupón
+document.getElementById('cuponForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const id = document.getElementById('c_id').value;
+  const payload = {
+    tienda: document.getElementById('c_tienda').value.trim() || 'Mercado Libre',
+    descuento: document.getElementById('c_descuento').value.trim(),
+    descripcion: document.getElementById('c_descripcion').value.trim(),
+    codigo: document.getElementById('c_codigo').value.trim().toUpperCase(),
+    link: ensureUrl(document.getElementById('c_link').value),
+    color: document.getElementById('c_color').value,
+    vence: document.getElementById('c_vence').value.trim(),
+    orden: Number(document.getElementById('c_orden').value) || 10,
+    activo: "si"
+  };
+  try{
+    if(id){
+      await updateDoc(doc(db, "cupones", id), payload);
+      showToast("✅ Cupón actualizado");
+    } else {
+      payload.likes = 1;
+      payload.dislikes = 0;
+      await addDoc(collection(db, "cupones"), payload);
+      showToast("✅ Cupón creado al instante");
+    }
+    resetCuponForm();
+  }catch(err){
+    alert("Error al guardar: " + err.message);
+  }
+});
+
+function resetCuponForm(){
+  document.getElementById('cuponForm').reset();
+  document.getElementById('c_id').value = "";
+  document.getElementById('c_tienda').value = "Mercado Libre";
+  document.getElementById('c_save_btn').textContent = "💾 Guardar Cupón al Instante";
+  document.getElementById('c_cancel_btn').style.display = "none";
+  linkStatus.textContent = "Pega tu link de afiliado para verificarlo...";
+  linkStatus.className = "link-status";
+}
+document.getElementById('c_cancel_btn').addEventListener('click', resetCuponForm);
+
+function renderAdminCouponsList(){
+  const list = document.getElementById('adminCuponesList');
+  if(!list) return;
+  if(rawFirestoreCoupons.length === 0){
+    list.innerHTML = `<div style="text-align:center;padding:16px;font-weight:700;color:var(--navy);">Aún no hay cupones en Firebase. Toca el botón azul <b>"📥 Importar mis datos actuales de Google Sheets"</b> arriba o agrega uno nuevo.</div>`;
+    return;
+  }
+  list.innerHTML = rawFirestoreCoupons.map(c => {
+    const isOff = (c.activo || 'si').toLowerCase() === 'no';
+    return `
+      <div class="admin-item ${isOff ? 'off' : ''}">
+        <div class="admin-item-info">
+          <div class="admin-item-title">[${c.tienda || 'ML'}] ${c.descuento} — Código: <code>${c.codigo || 'SIN CÓDIGO'}</code></div>
+          <div class="admin-item-sub">${c.descripcion || ''} · 👍 ${c.likes || 0} | 👎 ${c.dislikes || 0}</div>
+        </div>
+        <div class="admin-item-btns">
+          <button type="button" class="btn-sm ${!isOff ? 'toggle-on' : ''}" data-act="toggle" data-id="${c._id}">
+            ${isOff ? '🔴 Apagado (Prender)' : '🟢 Activo (Apagar)'}
+          </button>
+          <button type="button" class="btn-sm" data-act="resetvotes" data-id="${c._id}">🔄 Votos a 0</button>
+          <button type="button" class="btn-sm" data-act="edit" data-id="${c._id}">✏️ Editar</button>
+          <button type="button" class="btn-sm danger" data-act="del" data-id="${c._id}">🗑️</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+document.getElementById('adminCuponesList').addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-act]');
+  if(!btn) return;
+  const id = btn.getAttribute('data-id');
+  const act = btn.getAttribute('data-act');
+  const item = rawFirestoreCoupons.find(x => x._id === id);
+  if(!item) return;
+
+  if(act === 'toggle'){
+    const nuevo = (item.activo || 'si').toLowerCase() === 'no' ? 'si' : 'no';
+    await updateDoc(doc(db, "cupones", id), { activo: nuevo });
+    showToast(nuevo === 'si' ? '🟢 Cupón activado' : '🔴 Cupón pausado');
+  } else if(act === 'resetvotes'){
+    await updateDoc(doc(db, "cupones", id), { likes: 1, dislikes: 0 });
+    showToast('🔄 Contador reiniciado');
+  } else if(act === 'edit'){
+    document.getElementById('c_id').value = item._id;
+    document.getElementById('c_tienda').value = item.tienda || 'Mercado Libre';
+    document.getElementById('c_descuento').value = item.descuento || '';
+    document.getElementById('c_descripcion').value = item.descripcion || '';
+    document.getElementById('c_codigo').value = item.codigo || '';
+    document.getElementById('c_link').value = item.link || '';
+    document.getElementById('c_color').value = item.color || '';
+    document.getElementById('c_vence').value = item.vence || '';
+    document.getElementById('c_orden').value = item.orden || 10;
+    document.getElementById('c_save_btn').textContent = "💾 Guardar Cambios";
+    document.getElementById('c_cancel_btn').style.display = "inline-block";
+    document.getElementById('cuponForm').scrollIntoView({ behavior: 'smooth' });
+  } else if(act === 'del'){
+    if(confirm(`¿Eliminar el cupón "${item.descuento}"?`)){
+      await deleteDoc(doc(db, "cupones", id));
+      showToast('🗑️ Cupón eliminado');
+    }
+  }
+});
+
+// Guardar o Editar Oferta de Producto
+document.getElementById('ofertaForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const id = document.getElementById('o_id').value;
+  const payload = {
+    titulo: document.getElementById('o_titulo').value.trim(),
+    precio: document.getElementById('o_precio').value.trim(),
+    precio_antes: document.getElementById('o_antes').value.trim(),
+    vendedor: document.getElementById('o_vendedor').value.trim(),
+    imagen: document.getElementById('o_imagen').value.trim(),
+    link: ensureUrl(document.getElementById('o_link').value),
+    descripcion: document.getElementById('o_descripcion').value.trim(),
+    instrucciones: document.getElementById('o_instrucciones').value.trim(),
+    activo: "si"
+  };
+  try{
+    if(id){
+      await updateDoc(doc(db, "ofertas", id), payload);
+      showToast("✅ Oferta actualizada");
+    } else {
+      await addDoc(collection(db, "ofertas"), payload);
+      showToast("✅ Oferta agregada");
+    }
+    document.getElementById('ofertaForm').reset();
+    document.getElementById('o_id').value = "";
+    document.getElementById('o_cancel_btn').style.display = "none";
+  }catch(err){ alert("Error: " + err.message); }
+});
+
+function renderAdminOfertasList(){
+  const list = document.getElementById('adminOfertasList');
+  if(!list) return;
+  list.innerHTML = rawFirestoreOfertas.map(o => {
+    const isOff = (o.activo || 'si').toLowerCase() === 'no';
+    return `
+      <div class="admin-item ${isOff ? 'off' : ''}">
+        <div class="admin-item-info">
+          <div class="admin-item-title">${o.titulo} — $${o.precio}</div>
+          <div class="admin-item-sub">${o.vendedor || ''}</div>
+        </div>
+        <div class="admin-item-btns">
+          <button type="button" class="btn-sm ${!isOff ? 'toggle-on' : ''}" data-oact="toggle" data-id="${o._id}">
+            ${isOff ? '🔴 Apagado' : '🟢 Activo'}
+          </button>
+          <button type="button" class="btn-sm danger" data-oact="del" data-id="${o._id}">🗑️</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+document.getElementById('adminOfertasList').addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-oact]');
+  if(!btn) return;
+  const id = btn.getAttribute('data-id');
+  const act = btn.getAttribute('data-oact');
+  const item = rawFirestoreOfertas.find(x => x._id === id);
+  if(!item) return;
+  if(act === 'toggle'){
+    const nuevo = (item.activo || 'si').toLowerCase() === 'no' ? 'si' : 'no';
+    await updateDoc(doc(db, "ofertas", id), { activo: nuevo });
+  } else if(act === 'del'){
+    if(confirm(`¿Eliminar "${item.titulo}"?`)) await deleteDoc(doc(db, "ofertas", id));
+  }
+});
+
+// Botón mágico: Importa todos tus cupones y ofertas actuales desde tu Google Sheet hacia Firebase en 1 clic
+document.getElementById('importSheetBtn').addEventListener('click', async () => {
+  if(!confirm("¿Quieres importar tus cupones y ofertas actuales de tu Google Sheet hacia Firebase?")) return;
+  try{
+    showToast("⏳ Importando desde Google Sheets...");
+    const text = await fetchCsvText(SHEET_CSV_URL);
+    const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+    const rows = parsed.data.map(normalizeRow);
+    let idx = 1;
+    for(const r of rows){
+      if(!r.descuento && !r.link) continue;
+      await addDoc(collection(db, "cupones"), {
+        tienda: r.tienda || "Mercado Libre",
+        descuento: r.descuento || "",
+        descripcion: r.descripcion || "",
+        codigo: (r.codigo || "").toString().trim().toUpperCase(),
+        link: ensureUrl(r.link),
+        activo: (r.activo || "si").toString().trim().toLowerCase(),
+        vence: r.vence || "",
+        color: r.color || "",
+        orden: idx++,
+        likes: 5,
+        dislikes: 0
+      });
+    }
+    // También importa las ofertas si existen
+    try{
+      const oText = await fetchCsvText(OFERTAS_CSV_URL);
+      const oParsed = Papa.parse(oText, { header: true, skipEmptyLines: true });
+      for(const r of oParsed.data.map(normalizeRow)){
+        if(!r.titulo || !r.link) continue;
+        await addDoc(collection(db, "ofertas"), {
+          titulo: r.titulo || "",
+          imagen: r.imagen || "",
+          precio: r.precio || "",
+          precio_antes: r.precio_antes || r['precio antes'] || "",
+          descripcion: r.descripcion || "",
+          instrucciones: r.instrucciones || "",
+          vendedor: r.vendedor || "",
+          link: ensureUrl(r.link),
+          activo: (r.activo || "si").toString().trim().toLowerCase()
+        });
+      }
+    }catch(e){}
+    showToast("🎉 ¡Todos tus cupones y ofertas fueron importados!");
+  }catch(err){
+    alert("No se pudo leer el Google Sheet: " + err.message);
+  }
+});
 </script>
 
 </body>
