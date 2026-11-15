@@ -16,52 +16,57 @@
 [hidden]{display:none!important}
 body{margin:0;background:var(--sage);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
-header{background:linear-gradient(180deg,var(--sage),var(--sage-deep));padding:36px 20px 46px;text-align:center}
-.mascot img{width:180px;height:auto;border-radius:18px;display:block;margin:0 auto;filter:drop-shadow(0 4px 0 rgba(0,0,0,.12))}
-.brand-sub{font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-deep);opacity:.8;margin:6px 0 12px}
-h1{font-family:'Luckiest Guy','Arial Black',sans-serif;font-weight:400;font-size:clamp(38px,10.5vw,66px);line-height:1.05;margin:0;text-transform:uppercase}
-h1 .l1{display:block;font-size:.66em;color:var(--navy);-webkit-text-stroke:2px var(--white);text-shadow:0 2px 0 rgba(0,0,0,.15)}
+header{background:linear-gradient(180deg,var(--sage),var(--sage-deep));padding:24px 16px 34px;text-align:center}
+.mascot img{width:135px;height:auto;border-radius:18px;display:block;margin:0 auto;filter:drop-shadow(0 4px 0 rgba(0,0,0,.12))}
+.brand-sub{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-deep);opacity:.85;margin:6px 0 8px}
+h1{font-family:'Luckiest Guy','Arial Black',sans-serif;font-weight:400;font-size:clamp(34px,9.5vw,60px);line-height:1.02;margin:0;text-transform:uppercase}
+h1 .l1{display:block;font-size:.64em;color:var(--navy);-webkit-text-stroke:2px var(--white);text-shadow:0 2px 0 rgba(0,0,0,.15)}
 h1 .ac{color:var(--white);-webkit-text-stroke:3px var(--navy);text-shadow:0 3px 0 rgba(0,0,0,.2)}
-.sub{color:var(--navy-deep);font-weight:700;margin:16px 0 0;font-size:15px}
-.updated{display:inline-block;margin-top:14px;padding:6px 16px;background:rgba(255,255,255,.65);border-radius:999px;font-size:12px;font-weight:800;color:var(--navy-deep)}
-.badges{max-width:960px;margin:-22px auto 0;position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 16px}
-.badge{background:var(--white);border-radius:14px;padding:14px 6px 10px;text-align:center;box-shadow:0 4px 0 rgba(0,0,0,.08)}
-.badge-icon{width:38px;height:38px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:18px}
-.badge-label{font-size:10.5px;font-weight:800;color:var(--navy-deep);text-transform:uppercase;line-height:1.2}
-@media(max-width:520px){.badges{grid-template-columns:repeat(2,1fr)}}
-.howto{max-width:960px;margin:26px auto 0;padding:0 16px}
-.howto-box{display:flex;align-items:center;gap:14px;background:var(--white);border:2px solid var(--navy);border-radius:16px;padding:16px 20px;box-shadow:0 5px 0 var(--navy);font-size:13.5px;line-height:1.45}
-.howto-icon{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:20px}
-.howto-box strong{display:block;font-size:15px;color:var(--navy-deep);margin-bottom:2px;text-transform:uppercase}
-main{max-width:960px;margin:0 auto;padding:28px 16px 40px}
-.search-input{width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--sage-dark);background:var(--white);color:var(--ink);font-size:14px;font-weight:600;font-family:inherit;margin-bottom:12px}
-.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.chip{border:2px solid var(--navy);background:rgba(255,255,255,.35);color:var(--navy-deep);font-weight:800;font-size:12px;text-transform:uppercase;padding:8px 15px;border-radius:999px;cursor:pointer;font-family:inherit}
+.sub{color:var(--navy-deep);font-weight:700;margin:10px 0 0;font-size:14.5px}
+.updated{display:inline-block;margin-top:10px;padding:6px 16px;background:rgba(255,255,255,.78);border-radius:999px;font-size:12.5px;font-weight:800;color:var(--navy-deep);box-shadow:0 2px 0 rgba(0,0,0,.06)}
+.badges{max-width:960px;margin:-18px auto 0;position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 16px}
+.badge{background:var(--white);border-radius:14px;padding:10px 6px 8px;text-align:center;box-shadow:0 4px 0 rgba(0,0,0,.08)}
+.badge-icon{width:32px;height:32px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;font-size:15px}
+.badge-label{font-size:10px;font-weight:800;color:var(--navy-deep);text-transform:uppercase;line-height:1.15}
+.howto{max-width:960px;margin:16px auto 0;padding:0 16px}
+.howto-box{display:flex;align-items:center;gap:12px;background:var(--white);border:2px solid var(--navy);border-radius:14px;padding:12px 16px;box-shadow:0 4px 0 var(--navy);font-size:13px;line-height:1.4}
+.howto-icon{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:18px}
+.howto-box strong{display:block;font-size:14px;color:var(--navy-deep);margin-bottom:1px;text-transform:uppercase}
+@media(max-width:520px){
+  header{padding:16px 14px 26px}
+  .mascot img{width:105px}
+  .badges{grid-template-columns:repeat(4,1fr);gap:6px;padding:0 12px}
+  .badge{padding:8px 4px 6px;border-radius:10px}
+  .badge-icon{width:26px;height:26px;font-size:13px;margin-bottom:3px}
+  .badge-label{font-size:8.5px}
+  .howto{margin-top:12px;padding:0 12px}
+  .howto-box{padding:10px 12px;font-size:12px}
+}
+main{max-width:960px;margin:0 auto;padding:18px 16px 36px}
+.search-input{width:100%;padding:11px 16px;border-radius:999px;border:2px solid var(--sage-dark);background:var(--white);color:var(--ink);font-size:14px;font-weight:600;font-family:inherit;margin-bottom:10px}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{border:2px solid var(--navy);background:rgba(255,255,255,.35);color:var(--navy-deep);font-weight:800;font-size:12px;text-transform:uppercase;padding:7px 14px;border-radius:999px;cursor:pointer;font-family:inherit}
 .chip:hover{background:rgba(255,255,255,.65)}
 .chip.active{background:var(--navy);color:var(--white)}
 #status{text-align:center;color:var(--navy-deep);font-weight:700;padding:40px 0;font-size:14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
-.coupon{position:relative;background:var(--cream);color:var(--ink);border-radius:14px;padding:20px 20px 14px;display:flex;flex-direction:column;gap:10px;border:2px solid var(--sage-dark);box-shadow:0 6px 0 var(--sage-dark);transform:rotate(var(--r,0deg));transition:transform .15s,box-shadow .15s}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.coupon{position:relative;background:var(--cream);color:var(--ink);border-radius:14px;padding:18px 18px 14px;display:flex;flex-direction:column;gap:9px;border:2px solid var(--sage-dark);box-shadow:0 6px 0 var(--sage-dark);transform:rotate(var(--r,0deg));transition:transform .15s,box-shadow .15s;text-decoration:none;cursor:pointer}
 .coupon:hover{transform:translateY(-4px) rotate(var(--r,0deg));box-shadow:0 10px 0 var(--sage-dark)}
+.coupon:active{transform:translateY(0) rotate(0)}
 .coupon::before,.coupon::after{content:"";position:absolute;width:20px;height:20px;background:var(--sage);border-radius:50%;top:50%;transform:translateY(-50%)}
 .coupon::before{left:-10px}.coupon::after{right:-10px}
-.coupon-link{display:flex;flex-direction:column;gap:10px;color:inherit;text-decoration:none}
 .store-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .store{font-size:13.5px;text-transform:uppercase;letter-spacing:.08em;font-weight:900;color:var(--navy)}
-.badges-right{display:flex;gap:5px}
+.badges-right{display:flex;gap:5px;align-items:center}
 .pop-badge{font-size:9.5px;font-weight:900;background:#ffebee;color:#c62828;border:1px solid #ef9a9a;padding:2px 7px;border-radius:999px;text-transform:uppercase}
-.verified{font-size:9.5px;font-weight:800;color:var(--sage-dark);background:rgba(91,133,113,.14);padding:3px 8px;border-radius:999px}
-.discount{font-family:'Luckiest Guy','Arial Black',sans-serif;font-size:28px;line-height:1.1;text-transform:uppercase;color:var(--red)}
-.desc{font-size:16.5px;font-weight:700;color:#4a4235}
+.verified{font-size:9.5px;font-weight:800;color:var(--sage-dark);background:rgba(91,133,113,.15);padding:3px 8px;border-radius:999px}
+.discount{font-family:'Luckiest Guy','Arial Black',sans-serif;font-size:29px;line-height:1.08;text-transform:uppercase;color:var(--red)}
+.desc{font-size:16px;font-weight:700;color:#4a4235}
 .divider{border-top:2px dashed var(--sage-deep)}
 .code-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .code{font-family:'Courier New',monospace;font-weight:900;font-size:15px;letter-spacing:.08em;background:var(--navy);color:var(--white);padding:6px 10px;border-radius:6px}
-.cta{font-size:13px;font-weight:900;text-transform:uppercase;color:var(--red)}
-.meta-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:6px;border-top:1px solid rgba(0,0,0,.08);flex-wrap:wrap}
-.vote-group{display:flex;gap:6px}
-.vote-btn{background:rgba(255,255,255,.88);border:1.5px solid var(--sage-dark);color:var(--navy-deep);font-weight:800;font-size:11.5px;padding:4px 9px;border-radius:999px;cursor:pointer;font-family:inherit}
-.vote-btn.voted-up{background:#e8f5e9;border-color:#2e7d32;color:#1b5e20}
-.vote-btn.voted-down{background:#ffebee;border-color:#c62828;color:#b71c1c}
+.cta{font-size:12.5px;font-weight:900;text-transform:uppercase;color:var(--white);background:var(--red);padding:7px 12px;border-radius:8px;box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.meta-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:4px;border-top:1px solid rgba(0,0,0,.07);flex-wrap:wrap}
 .uses,.countdown{font-size:12px;font-weight:900;color:var(--sage-dark)}
 .countdown.expired{color:var(--red);text-transform:uppercase}
 .no-results{grid-column:1/-1;text-align:center;padding:40px 16px;color:var(--navy-deep);font-weight:700}
@@ -93,8 +98,6 @@ main{max-width:960px;margin:0 auto;padding:28px 16px 40px}
 .social-btn{display:flex;align-items:center;gap:8px;background:#fff;color:var(--navy-deep);font-weight:800;font-size:13px;text-decoration:none;padding:10px 18px;border-radius:999px;box-shadow:0 4px 0 rgba(0,0,0,.1)}
 .social-btn .ico{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px}
 footer{text-align:center;padding:14px 16px 90px;font-size:12px}
-.admin-trigger{background:transparent;border:1px solid rgba(20,41,68,.25);color:var(--navy-deep);padding:5px 12px;border-radius:999px;font-size:11px;font-weight:700;opacity:.6;cursor:pointer}
-.admin-trigger:hover{opacity:1;background:rgba(255,255,255,.4)}
 .wa-float{position:fixed;right:18px;bottom:18px;width:60px;height:60px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(0,0,0,.28);z-index:50}
 .wa-float svg{width:30px;height:30px;fill:#fff}
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;font-weight:800;padding:12px 20px;border-radius:10px;opacity:0;transition:all .25s;pointer-events:none;font-size:14px;z-index:200;max-width:90%;text-align:center}
@@ -109,11 +112,12 @@ footer{text-align:center;padding:14px 16px 90px;font-size:12px}
 .admin-tabs,.admin-bar-r{display:flex;gap:8px;flex-wrap:wrap}
 .admin-tab{background:#fff;border:2px solid var(--navy);color:var(--navy);padding:8px 16px;border-radius:999px;font-weight:800;font-size:12.5px;cursor:pointer}
 .admin-tab.active{background:var(--navy);color:#fff}
-.admin-form{background:#fff;border:2px solid var(--sage-dark);border-radius:14px;padding:16px;margin-bottom:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px}
+.admin-form{background:#fff;border:2px solid var(--sage-dark);border-radius:14px;padding:16px;margin-bottom:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
 .admin-field{display:flex;flex-direction:column;gap:4px}
 .admin-field.full,.admin-actions{grid-column:1/-1}
 .admin-field label{font-size:11.5px;font-weight:800;color:var(--navy-deep);text-transform:uppercase}
-.admin-field input{padding:9px 11px;border:1.5px solid var(--sage-deep);border-radius:8px;font-size:13.5px;font-family:inherit;font-weight:600}
+.admin-field input{width:100%;min-width:0;padding:9px 11px;border:1.5px solid var(--sage-deep);border-radius:8px;font-size:13.5px;font-family:inherit;font-weight:600}
+.admin-field textarea{width:100%;min-height:40px;padding:9px 11px;border:1.5px solid var(--sage-deep);border-radius:8px;font-size:13.5px;font-family:inherit;font-weight:600;line-height:1.35;resize:none;overflow:hidden;overflow-wrap:anywhere}
 .link-status{font-size:11.5px;font-weight:800}
 .link-status.ok{color:#2e7d32}.link-status.warn{color:#c62828}
 .admin-actions{display:flex;gap:10px;flex-wrap:wrap}
@@ -130,9 +134,6 @@ footer{text-align:center;padding:14px 16px 90px;font-size:12px}
 .btn-sm.danger{border-color:var(--red);color:var(--red)}
 .btn-sm.on{background:#e8f5e9;border-color:#2e7d32;color:#1b5e20}
 .admin-msg{position:sticky;top:0;z-index:5;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:800;margin-bottom:12px;border:2px solid transparent}.admin-msg.ok{background:#e8f5e9;color:#1b5e20;border-color:#2e7d32}.admin-msg.err{background:#ffebee;color:#b71c1c;border-color:#c62828}.admin-msg.info{background:#e3f2fd;color:#0d47a1;border-color:#1e88e5}
-.admin-field input{width:100%;min-width:0}
-.admin-field textarea{width:100%;min-height:40px;padding:9px 11px;border:1.5px solid var(--sage-deep);border-radius:8px;font-size:13.5px;font-family:inherit;font-weight:600;line-height:1.35;resize:none;overflow:hidden;overflow-wrap:anywhere}
-.admin-form{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
 @media(max-width:600px){.admin-modal{padding:8px 6px 40px}.admin-box{padding:12px;border-width:2px}.admin-form{padding:12px;gap:10px}.admin-field input,.admin-field textarea{font-size:16px}.admin-item-btns .btn-sm{padding:8px 12px;font-size:12.5px}.admin-bar-r .btn-secondary{font-size:12px;padding:9px 12px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -140,11 +141,11 @@ footer{text-align:center;padding:14px 16px 90px;font-size:12px}
 <body>
 
 <header>
-  <div class="mascot"><img src="mascota.webp" alt="El Tío Cupones" width="180" height="168"></div>
+  <div class="mascot"><img src="mascota.webp" alt="El Tío Cupones" width="135" height="126"></div>
   <div class="brand-sub">Cupones y Ofertas ML</div>
   <h1><span class="l1">El Tío</span><span class="ac">Cupones</span></h1>
   <p class="sub">Los mejores cupones y descuentos de Mercado Libre</p>
-  <div class="updated" id="lastUpdated">⚡ Cupones actualizados constantemente</div>
+  <div class="updated" id="lastUpdated">⚡ Cupones verificados hoy</div>
 </header>
 
 <div class="badges">
@@ -156,7 +157,7 @@ footer{text-align:center;padding:14px 16px 90px;font-size:12px}
 
 <div class="howto"><div class="howto-box">
   <div class="howto-icon">👆</div>
-  <div><strong>¿Cómo usar el cupón?</strong>Toca un cupón, copiamos el código automáticamente y te llevamos directo a la oferta en Mercado Libre.</div>
+  <div><strong>¿Cómo usar el cupón?</strong>Toca cualquier cupón, copiamos el código en automático y te llevamos directo a Mercado Libre.</div>
 </div></div>
 
 <main>
@@ -229,7 +230,7 @@ footer{text-align:center;padding:14px 16px 90px;font-size:12px}
           <div class="admin-field"><label for="c_descuento">Descuento (título)</label><textarea id="c_descuento" rows="1" placeholder="$500 OFF o 10% OFF" required></textarea></div>
           <div class="admin-field"><label for="c_descripcion">Descripción / compra mínima</label><textarea id="c_descripcion" rows="1" placeholder="Compra mínima $3,000"></textarea></div>
           <div class="admin-field"><label for="c_codigo">Código del cupón</label><input type="text" id="c_codigo" placeholder="Vacío si no lleva código"></div>
-          <div class="admin-field full"><label for="c_link">Tu link de afiliado de Mercado Libre</label><textarea id="c_link" rows="1" placeholder="https://meli.la/..." required></textarea>
+          <div class="admin-field full"><label for="c_link">Tu link de afiliado de Mercado Libre</label><textarea id="c_link" rows="1" placeholder="https://meli.la/... o tu link con matt_tool" required></textarea>
             <div class="link-status" id="c_link_status">Pega tu link de afiliado para verificarlo...</div></div>
           <div class="admin-field"><label for="c_color">Color (nombre o #HEX)</label><input type="text" id="c_color" list="coloresList" placeholder="Vacío = crema">
             <datalist id="coloresList"><option value="verde"><option value="amarillo"><option value="rojo"><option value="azul"><option value="celeste"><option value="morado"><option value="rosa"><option value="naranja"><option value="dorado"><option value="turquesa"><option value="gris"><option value="cafe"><option value="negro"><option value="blanco"></datalist></div>
@@ -267,11 +268,23 @@ footer{text-align:center;padding:14px 16px 90px;font-size:12px}
 
 <div class="toast" id="toast" role="status"></div>
 
-<!-- Script clásico: el modal abre aunque falle el módulo de Firebase -->
+<!-- Script clásico: fecha automática de hoy y apertura del modal por #admin o Escape -->
 <script>
 (function(){
+  var u=document.getElementById('lastUpdated');
+  if(u){
+    try{
+      var f=new Intl.DateTimeFormat('es-MX',{day:'numeric',month:'long'}).format(new Date());
+      u.textContent='⚡ Cupones hoy '+f+' en Mercado Libre';
+    }catch(e){}
+  }
   var m=document.getElementById('adminModal');
-  document.getElementById('closeAdminBtn').addEventListener('click',function(){m.classList.remove('open')});
+  function chk(){if(location.hash==='#admin')m.classList.add('open');}
+  window.addEventListener('hashchange',chk);chk();
+  document.getElementById('closeAdminBtn').addEventListener('click',function(){
+    m.classList.remove('open');
+    if(location.hash==='#admin')history.replaceState(null,null,' ');
+  });
   m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open')});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')m.classList.remove('open')});
 })();
@@ -281,7 +294,7 @@ footer{text-align:center;padding:14px 16px 90px;font-size:12px}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import { getFirestore, collection, doc, onSnapshot, getDocs, setDoc, runTransaction } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import { getFirestore, collection, doc, onSnapshot, getDocs, runTransaction } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 const app = initializeApp({
   apiKey: "AIzaSyCikdrkep__NflYuxg-eA3RkxEubohV5FU",
@@ -298,16 +311,17 @@ const SHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ78FaPhtRhWjNC8u
 const SHEET_CSV_URL = SHEET + "0", SOCIAL_CSV_URL = SHEET + "1718758494", OFERTAS_CSV_URL = SHEET + "527305852";
 const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/TU-LINK-DE-GRUPO";
 const COUNTER_BASE = "https://countapi.mileshilliard.com/api/v1", NS = "eltiocupones_com";
-const AFF_RE = /^https:\/\/(meli\.la\/|(www\.)?mercadolibre\.com(\.mx)?\/sec\/)/i;
+// Reconoce meli.la, /sec/, /social/ y cualquier link de ML con matt_tool=
+const AFF_RE = /^https:\/\/(meli\.la\/|(www\.)?mercadolibre\.com(\.mx)?\/(sec\/|social\/|.*[?&]matt_tool=))/i;
 const socialFallback = { facebook:"https://www.facebook.com/tu-pagina", grupo:"https://www.facebook.com/groups/tu-grupo", whatsapp:"https://whatsapp.com/channel/tu-canal", instagram:"https://www.instagram.com/tu-usuario", youtube:"https://www.youtube.com/@tu-canal", tiktok:"https://www.tiktok.com/@tu-usuario" };
 const socialIds = { facebook:"fbPageLink", grupo:"fbGroupLink", whatsapp:"waChannelLink", instagram:"igLink", youtube:"ytLink", tiktok:"ttLink", grupo_whatsapp:"waFloat" };
 const CK = 'eltiocupones_site_cache_v4';
-const ADMIN_KEYWORD = "tioadmin2026"; // escribe esto en el buscador para abrir el panel (en minúsculas)
+const ADMIN_KEYWORD = "tioadmin2026";
 
 const $ = id => document.getElementById(id);
 let allCoupons = [], rawC = [], rawO = [], activeStore = "Todos", usingFS = false, usageCounts = {};
 
-const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&','<':'<','>':'>','"':'"',"'":'''}[c]));
 function ensureUrl(u){
   if(!u) return "";
   const c = u.toString().replace(/[\u200B-\u200D\uFEFF\u00A0]/g, "").trim();
@@ -455,7 +469,7 @@ function fetchCounts(sel, fmt){
   });
 }
 
-/* Cupones */
+/* Cupones: TODA la tarjeta es un enlace <a> directo para no perder ni un solo clic */
 function renderGrid(list){
   const grid = $('grid');
   grid.innerHTML = "";
@@ -468,20 +482,21 @@ function renderGrid(list){
     const link = ensureUrl(r.link);
     if(!link || link === '#') return;
     const key = couponKey(r), vence = parseVence(r.vence);
-    const ver = Number(r.verificado) || 0, fresh = ver && (Date.now() - ver) < 3 * 864e5;
     const store = esc(storeOf(r));
-    const card = document.createElement('div');
+    const card = document.createElement('a');
     card.className = 'coupon';
-    card.style.setProperty('--r', i % 2 === 0 ? '-0.6deg' : '0.6deg');
+    card.href = link;
+    card.target = '_blank';
+    card.rel = 'noopener sponsored';
+    card.setAttribute('aria-label', 'Ir a la oferta de ' + store + ' en Mercado Libre');
+    card.style.setProperty('--r', i % 2 === 0 ? '-0.5deg' : '0.5deg');
     card.innerHTML = `
-      <a class="coupon-link" href="${esc(link)}" target="_blank" rel="noopener sponsored" aria-label="Ir a la oferta de ${store} en Mercado Libre">
-        <div class="store-row"><span class="store">${store}</span>
-          <div class="badges-right">${fresh ? `<span class="verified">✓ Verificado ${new Date(ver).toLocaleDateString('es-MX', { day:'2-digit', month:'2-digit' })}</span>` : ''}</div></div>
-        <div class="discount">${esc(r.descuento || 'Oferta especial')}</div>
-        <div class="desc">${esc(r.descripcion || '')}</div>
-        <div class="divider"></div>
-        <div class="code-row"><span class="code">${esc(maskCode(r.codigo))}</span><span class="cta">${r.codigo ? 'Copiar y ver →' : 'Ver oferta →'}</span></div>
-      </a>
+      <div class="store-row"><span class="store">${store}</span>
+        <div class="badges-right"><span class="pop-badge">🔥 Popular</span><span class="verified">✓ Verificado hoy</span></div></div>
+      <div class="discount">${esc(r.descuento || 'Oferta especial')}</div>
+      <div class="desc">${esc(r.descripcion || '')}</div>
+      <div class="divider"></div>
+      <div class="code-row"><span class="code">${esc(maskCode(r.codigo))}</span><span class="cta">${r.codigo ? 'Copiar y Canjear →' : 'Ver Oferta →'}</span></div>
       <div class="meta-row">
         <span class="uses" data-key="${key}">${formatUses(usageCounts[key] || 0)}</span>
         ${vence ? `<span class="countdown" data-vence="${vence.getTime()}"></span>` : ''}
@@ -490,10 +505,9 @@ function renderGrid(list){
     if(color){
       card.style.backgroundColor = color;
       const tc = readableText(color);
-      if(tc) ['.store', '.discount', '.desc', '.cta', '.uses', '.countdown'].forEach(s => { const el = card.querySelector(s); if(el) el.style.color = tc; });
+      if(tc) ['.store', '.discount', '.desc', '.uses', '.countdown'].forEach(s => { const el = card.querySelector(s); if(el) el.style.color = tc; });
     }
-    // Sin preventDefault: el link de afiliado navega normal
-    card.querySelector('.coupon-link').addEventListener('click', () => {
+    card.addEventListener('click', () => {
       if(r.codigo) showToast(copyToClipboard(r.codigo) ? 'Código ' + r.codigo + ' copiado ✓' : 'Tu código: ' + r.codigo);
       hitCounter(key, card.querySelector('.uses'), formatUses);
     });
@@ -515,7 +529,6 @@ function renderCoupons(rows){
   buildChips(allCoupons);
   applyFilters();
 }
-
 
 /* Ofertas */
 const ofPrice = v => { const n = parseFloat((v || '').toString().replace(/[^0-9.]/g, '')); return isNaN(n) ? null : n; };
@@ -563,6 +576,7 @@ $('ofertasGrid').addEventListener('click', e => {
   const a = e.target.closest('a.oferta');
   if(a){ const el = a.querySelector('.oferta-uses'); if(el) hitCounter(el.dataset.key, el, ofClicks); }
 });
+
 /* ===== Datos: UN solo documento (site/data) = 1 lectura por visita ===== */
 const SITE_REF = doc(db, "site", "data");
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
@@ -647,15 +661,15 @@ const linkInput = $('c_link'), linkStatus = $('c_link_status');
 linkInput.addEventListener('input', () => {
   const v = ensureUrl(linkInput.value);
   if(!v){ linkStatus.textContent = "Pega tu link de afiliado para verificarlo..."; linkStatus.className = "link-status"; }
-  else if(AFF_RE.test(v)){ linkStatus.textContent = "✅ Link de afiliado válido (meli.la o /sec/)"; linkStatus.className = "link-status ok"; }
-  else { linkStatus.textContent = "⚠️ No parece un link de afiliado: puede no generar comisión."; linkStatus.className = "link-status warn"; }
+  else if(AFF_RE.test(v)){ linkStatus.textContent = "✅ Link de afiliado válido (comisión protegida)"; linkStatus.className = "link-status ok"; }
+  else { linkStatus.textContent = "⚠️ No parece un link de afiliado: revisa que lleve tu matt_tool o meli.la."; linkStatus.className = "link-status warn"; }
 });
-const confirmLink = url => AFF_RE.test(url) || confirm("Este link NO parece de afiliado (meli.la o /sec/). No generará comisión. ¿Guardar de todos modos?");
+const confirmLink = url => AFF_RE.test(url) || confirm("Este link NO parece de afiliado. ¿Guardar de todos modos?");
 
 function adminMsg(text, type){ const el = $('adminMsg'); el.textContent = text || ''; el.className = 'admin-msg ' + (type || 'info'); el.hidden = !text; }
 function fbErr(err){
   const code = (err && err.code) || '';
-  if(code === 'permission-denied') return 'Firestore rechazó la operación (permission-denied). Revisa que publicaste las reglas nuevas y que entraste con ' + ADMIN_EMAIL + '.';
+  if(code === 'permission-denied') return 'Firestore rechazó la operación (permission-denied). Revisa tus Reglas de Firestore y tu sesión con ' + ADMIN_EMAIL + '.';
   return 'Error: ' + ((err && err.message) || err);
 }
 const one = s => (s || '').replace(/\s*\n\s*/g, ' ').trim();
@@ -712,7 +726,7 @@ $('c_cancel_btn').addEventListener('click', () => resetCuponForm());
 function renderAdminCupones(){
   const list = $('adminCuponesList');
   if(!rawC.length){
-    list.innerHTML = `<div class="admin-item-sub" style="text-align:center;padding:16px;font-weight:700">No hay cupones guardados. Crea uno arriba, o usa "Migrar datos anteriores" para traer los que ya tenías.</div>`;
+    list.innerHTML = `<div class="admin-item-sub" style="text-align:center;padding:16px;font-weight:700">No hay cupones guardados. Crea uno arriba, o usa "Migrar datos anteriores".</div>`;
     return;
   }
   list.innerHTML = `<div class="admin-item-sub" style="font-weight:800">Cupones: ${rawC.length}</div>` + rawC.map(c => {
@@ -848,7 +862,6 @@ $('adminOfertasList').addEventListener('click', async e => {
   }catch(err){ adminMsg(fbErr(err), 'err'); }
 });
 
-/* Migrar desde las colecciones anteriores (cupones / ofertas) al documento único */
 $('migrateBtn').addEventListener('click', async () => {
   if(!confirm("¿Copiar tus cupones y ofertas de la base anterior al formato nuevo? Esto REEMPLAZA lo que haya en el formato nuevo.")) return;
   try{
@@ -861,13 +874,11 @@ $('migrateBtn').addEventListener('click', async () => {
   }catch(err){ adminMsg(fbErr(err), 'err'); }
 });
 
-/* Claves para detectar repetidos: mismo link + código + descuento (cupones) / mismo link + título (ofertas) */
 const norm = s => (s || '').toString().toLowerCase().replace(/\s+/g, ' ').trim();
 const normLink = u => ensureUrl(u).toLowerCase().replace(/\/+$/, '');
 const cKey = c => normLink(c.link) + '|' + norm(c.codigo) + '|' + norm(c.descuento);
 const oKey = o => normLink(o.link) + '|' + norm(o.titulo);
 
-/* Importar desde Google Sheets: SOLO lo que todavía no existe */
 $('importSheetBtn').addEventListener('click', async () => {
   try{
     adminMsg('⏳ Leyendo el Google Sheet…', 'info');
@@ -876,10 +887,10 @@ $('importSheetBtn').addEventListener('click', async () => {
     try{ o = parseCsv(await fetchCsvText(OFERTAS_CSV_URL)).filter(r => r.titulo && ensureUrl(r.link)); }catch(e){}
     let addC = 0, addO = 0, skipC = 0, skipO = 0;
     await mutate(d => {
-      addC = addO = skipC = skipO = 0;   // la transacción puede reintentarse
+      addC = addO = skipC = skipO = 0;
       const kc = new Set(d.cupones.map(cKey)), ko = new Set(d.ofertas.map(oKey));
       c.forEach(r => {
-        const item = { _id: uid(), tienda: r.tienda || "Mercado Libre", descuento: r.descuento || "", descripcion: r.descripcion || "", codigo: (r.codigo || "").toString().trim().toUpperCase(), link: ensureUrl(r.link), activo: (r.activo || "si").toString().trim().toLowerCase(), vence: r.vence || "", color: r.color || "", orden: d.cupones.length + 1 };
+        const item = { _id: uid(), tienda: r.tienda || "Mercado Libre", descuento: r.descuento || "", descripcion: r.descripcion || "", codigo: (r.codigo || "").toString().trim().toUpperCase(), link: ensureUrl(r.link), activo: (r.activo || "si").toString().trim().toLowerCase(), vence: r.vence || "", color: r.color || "", orden: d.cupones.length + 1, verificado: Date.now() };
         const k = cKey(item);
         if(kc.has(k)){ skipC++; return; }
         kc.add(k); d.cupones.push(item); addC++;
@@ -891,11 +902,10 @@ $('importSheetBtn').addEventListener('click', async () => {
         ko.add(k); d.ofertas.push(item); addO++;
       });
     });
-    adminMsg('✅ Nuevos importados: ' + addC + ' cupones y ' + addO + ' ofertas. Ya existían (no se tocaron): ' + skipC + ' cupones y ' + skipO + ' ofertas.', 'ok');
+    adminMsg('✅ Nuevos importados: ' + addC + ' cupones y ' + addO + ' ofertas. Ya existían: ' + skipC + ' cupones y ' + skipO + ' ofertas.', 'ok');
   }catch(err){ adminMsg("No se pudo importar: " + fbErr(err), "err"); }
 });
 
-/* Quitar repetidos que ya se hayan colado (conserva la primera copia) */
 $('dedupeBtn').addEventListener('click', async () => {
   if(!confirm("¿Quitar los cupones y ofertas repetidos (mismo link, código y descuento)? Se conserva la primera copia de cada uno.")) return;
   try{
