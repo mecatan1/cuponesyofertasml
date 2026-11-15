@@ -7,12 +7,6 @@
 <meta name="description" content="El Tío Cupones: códigos de descuento de Mercado Libre actualizados todos los días. Ahorra en tus compras con ofertas verificadas.">
 <meta name="theme-color" content="#5b8571">
 
-<!-- Open Graph / redes sociales -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="El Tío Cupones · Los mejores cupones de Mercado Libre">
-<meta property="og:description" content="Códigos de descuento de Mercado Libre actualizados todos los días.">
-<meta name="twitter:card" content="summary">
-
 <link rel="icon" type="image/webp" href="mascota.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -733,7 +727,6 @@ function showToast(msg){
   setTimeout(()=> t.classList.remove('show'), 1900);
 }
 
-// COPIADO SÍNCRONO INFALIBLE PARA IPHONE / SAFARI
 function copyToClipboard(text){
   if(!text) return false;
   const textarea = document.createElement('textarea');
@@ -1047,13 +1040,11 @@ function renderCoupons(rows){
   fetchUsageCounts();
 }
 
-// 1. Pintado instantáneo en 0.01s desde memoria caché local
 try{
   const cached = JSON.parse(localStorage.getItem(COUPONS_CACHE_KEY) || 'null');
   if(cached && Array.isArray(cached.rows) && cached.rows.length) renderCoupons(cached.rows);
 }catch(e){}
 
-// 2. Conexión en vivo a Firebase Firestore
 onSnapshot(collection(db, "cupones"), (snap) => {
   const docs = [];
   snap.forEach(d => docs.push({ _id: d.id, ...d.data() }));
@@ -1201,17 +1192,9 @@ const adminModal = document.getElementById('adminModal');
 const openAdminBtn = document.getElementById('openAdminBtn');
 const closeAdminBtn = document.getElementById('closeAdminBtn');
 
-function checkHashAdmin(){
-  if(window.location.hash === '#admin') adminModal.classList.add('open');
-}
-window.addEventListener('hashchange', checkHashAdmin);
-checkHashAdmin();
-
+// Apertura directa mejorada (sin requerir # en la URL)
 openAdminBtn.addEventListener('click', () => adminModal.classList.add('open'));
-closeAdminBtn.addEventListener('click', () => {
-  adminModal.classList.remove('open');
-  if(window.location.hash === '#admin') history.replaceState(null, null, ' ');
-});
+closeAdminBtn.addEventListener('click', () => adminModal.classList.remove('open'));
 
 document.getElementById('googleLoginBtn').addEventListener('click', async () => {
   const provider = new GoogleAuthProvider();
@@ -1378,7 +1361,6 @@ document.getElementById('adminCuponesList').addEventListener('click', async (e) 
   }
 });
 
-// Guardar o Editar Oferta de Producto
 document.getElementById('ofertaForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const id = document.getElementById('o_id').value;
@@ -1464,7 +1446,6 @@ document.getElementById('adminOfertasList').addEventListener('click', async (e) 
   }
 });
 
-// Importador inteligente sin duplicados
 document.getElementById('importSheetBtn').addEventListener('click', async () => {
   if(!confirm("¿Sincronizar e importar tus cupones y ofertas actuales desde Google Sheets hacia Firebase?")) return;
   try{
